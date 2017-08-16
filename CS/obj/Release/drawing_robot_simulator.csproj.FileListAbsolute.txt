@@ -1,0 +1,8 @@
+C:\Users\erwan\Desktop\drawing_robot_simulator\bin\Release\drawing_robot_simulator.exe.config
+C:\Users\erwan\Desktop\drawing_robot_simulator\bin\Release\drawing_robot_simulator.exe
+C:\Users\erwan\Desktop\drawing_robot_simulator\bin\Release\drawing_robot_simulator.pdb
+C:\Users\erwan\Desktop\drawing_robot_simulator\obj\Release\drawing_robot_simulator.Form1.resources
+C:\Users\erwan\Desktop\drawing_robot_simulator\obj\Release\drawing_robot_simulator.Properties.Resources.resources
+C:\Users\erwan\Desktop\drawing_robot_simulator\obj\Release\drawing_robot_simulator.csproj.GenerateResource.Cache
+C:\Users\erwan\Desktop\drawing_robot_simulator\obj\Release\drawing_robot_simulator.exe
+C:\Users\erwan\Desktop\drawing_robot_simulator\obj\Release\drawing_robot_simulator.pdb
