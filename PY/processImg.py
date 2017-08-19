@@ -52,7 +52,7 @@ class ProcessImg(object):
     def padding(self, canny):
         '''Ajoute du padding pour eviter l'overflow lors du draw'''
         return cv2.copyMakeBorder(
-            canny, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=0000)
+            canny, 100, 100, 100, 100, cv2.BORDER_CONSTANT, value=0000)
 
     def coords_file(self, file='coords'):
         '''Retourne un fichier dont chaque ligne est une coordonnée

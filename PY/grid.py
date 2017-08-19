@@ -43,7 +43,9 @@ class Draw(object):
 
         self.can.pack(side='left', padx=5, pady=5)
 
-        self.current = None # idx
+        self.pen = self.can.create_oval(1,1,8,8, width=0, fill='red' )
+
+        self.current = 0    # idx
         self.next    = None # idx
         self.x       = None # x
         self.y       = None # y
@@ -77,9 +79,39 @@ class Draw(object):
         self.current = self.start_point()
         self.set_xy()
         self.lst[self.current] = 0
-        self.move()
+        # self.move_pen_up()
+        self.move_pen_down()
 
-    def move(self):
+
+    # def move_pen_up(self):
+    #     old = self.current
+    #     old_x = self.x
+    #     old_y = self.y
+    #     self.current = self.start_point()
+    #     self.set_xy()
+    #     ix = 1 if self.x > old_x else - 1
+    #     iy = 1 if self.x > old_y else - 1
+
+    #     x1, y1 = old_x - 4, old_y - 4
+    #     x2, y2 = old_x + 4, old_y + 4
+
+    #     def test(ix, iy):
+    #         if self.x != old_x:
+    #             self.can.coords(self.pen, x1, y1, x2, y2, fill='blue')
+    #             ix += 1
+
+    #         if self.y != old_y:
+    #             self.can.coords(self.pen, x1, y1, x2, y2, fill='blue')
+    #             iy += 1
+
+    #         self.w.after(self.speed, test)
+
+    #     test(ix, iy)
+
+    #     self.move_pen_down()
+
+
+    def move_pen_down(self):
         self.i += 1
         print('i: {}/{}\tcurrent idx: {:6}\t({:3},{:3})'.format(
             self.i, self.dots, self.current, self.x, self.y))
@@ -88,11 +120,12 @@ class Draw(object):
         x2, y2 = self.x + 1, self.y + 1
 
         oval = self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
+        self.can.coords(self.pen, x1-4, y1-4, x2+4, y2+4)
 
         self.find_next()
 
         if self.i < self.dots:
-            self.w.after(self.speed, self.move)
+            self.w.after(self.speed, self.move_pen_down)
 
     def set_current(self, idx):
         self.current = idx
@@ -141,4 +174,7 @@ if __name__ == '__main__':
     # d = Draw('04carlage.jpg')
     d = Draw('01atat.jpg')
     # d = Draw('03steph.jpg')
-    d.launche(3)
+    d.launche(5)
+
+    # print(d.start_point())
+    # print(d.idx_xy(d.start_point()))
