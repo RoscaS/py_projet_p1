@@ -11,7 +11,7 @@ class ProcessImg(object):
     def __process(self):
         img = cv2.imread(self.original)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        
+
         return cv2.GaussianBlur(gray, (3, 3), 0)
 
     @property
@@ -84,18 +84,6 @@ class ProcessImg(object):
         elif k == ord('s') and canny != 'all':
             cv2.imwrite("atat-canny.jpg", img)
             cv2.destroyAllWindows()
-
-    # def padding(self):
-    # self.processed = cv2.resize(
-    # self.processed, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
-
-    # pts1 = np.float32([[56,65],[368,52],[28,387],[389,390]])
-    # pts2 = np.float32([[0,0],[300,0],[0,300],[300,300]])
-    # M = cv2.getPerspectiveTransform(pts1,pts2)
-    # self.processed = cv2.warpPerspective(self.processed,M,(300,300))
-
-    # self.processed = cv2.copyMakeBorder(self.processed, 10, 10, 10, 10,
-    #                                     cv2.BORDER_CONSTANT, value=0000)
 
 
 if __name__ == '__main__':

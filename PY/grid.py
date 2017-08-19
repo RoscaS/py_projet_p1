@@ -60,9 +60,9 @@ class Draw(object):
         print('start_point')
         for c, i in enumerate(self.lst):
             if i:
-                # return self.idx_xy(c)
                 return c
         return None
+
 
     def idx_xy(self, idx):
         x = idx - ((idx // self.grid.width) * self.grid.width)
@@ -131,16 +131,14 @@ class Draw(object):
 
 
 
-
-
-
-
 if __name__ == '__main__':
 
-    # d = Draw('07Pika.jpg')
+    # d = Draw('10hand2.png')
+    # d = Draw('09hand.jpg')
+    d = Draw('07Pika.jpg')
     # d = Draw('08face.jpg')
     # d = Draw('06logo2.png')
     # d = Draw('05logo1.png')
     # d = Draw('04carlage.jpg')
-    d = Draw('01atat.jpg')
-    d.launche(1)
+    # d = Draw('01atat.jpg')
+    d.launche(3)
