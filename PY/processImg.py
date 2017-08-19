@@ -3,16 +3,10 @@ import cv2
 
 class ProcessImg(object):
     def __init__(self, img):
-        self.original  = img
+        self.original  = cv2.imread(img)
+        self.height    = self.original.shape[0]
+        self.width     = self.original.shape[1]
         self.processed = self.__process()
-        self.width     = np.size(self.processed, 0)
-        self.height    = np.size(self.processed, 1)
-
-    def __process(self):
-        img = cv2.imread(self.original)
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-        return cv2.GaussianBlur(gray, (3, 3), 0)
 
     @property
     def coords(self):
@@ -21,12 +15,24 @@ class ProcessImg(object):
         canny = self.auto()
         return [(x, y) for y in range(self.height) for x in range(self.width)
                 if canny[y, x] != 0]
+    
+    def __process(self):
+        resized = self.resize(self.original)
+        gray    = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
+        return cv2.GaussianBlur(gray, (3, 3), 0)
 
-    @property
+    def resize(self, img, width=640):
+        if img.shape[1] > 640:
+            img_scale = width / self.width
+            xx = int(self.original.shape[1] * img_scale)
+            yy = int(self.original.shape[0] * img_scale)
+            self.height, self.width = yy, xx
+            resized = cv2.resize(self.original, (xx, yy))
+            return resized
+
     def wide(self):
         return cv2.Canny(self.processed, 10, 200)
 
-    @property
     def tight(self):
         return cv2.Canny(self.processed, 225, 250)
 
@@ -40,10 +46,13 @@ class ProcessImg(object):
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
         canny = cv2.Canny(self.processed, lower, upper)
-        # ajoute du padding pour eviter l'overflow lors du draw
-        paddi = cv2.copyMakeBorder(
+        return self.padding(canny)
+
+
+    def padding(self, canny):
+        '''Ajoute du padding pour eviter l'overflow lors du draw'''
+        return cv2.copyMakeBorder(
             canny, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=0000)
-        return paddi
 
     def coords_file(self, file='coords'):
         '''Retourne un fichier dont chaque ligne est une coordonnée
@@ -53,28 +62,26 @@ class ProcessImg(object):
                 f.write('{} {}\n'.format(point[0], point[1]))
 
     def display(self, debug='auto'):
-        '''Options de la detection de bords: `wide` = bornes de 
-        l'hysteris large. `tight` = bornes de l'hysteresis proches. 
+        '''Options de la detection de bords: `wide()` = bornes de 
+        l'hysteris large. `tight()` = bornes de l'hysteresis proches. 
         Auto est préférable dans la majorité des cas. `all` affiche 
         les 3'''
-        # cv2.namedWindow('wide',  cv2.WINDOW_NORMAL)
+        types = {
+            'wide':      lambda t: cv2.imshow(t, self.wide()),
+            'tight':     lambda t: cv2.imshow(t, self.tight()),
+            'auto':      lambda t: cv2.imshow(t, self.auto()),
+            'processed': lambda t: cv2.imshow(t, self.processed),
+            'original':  lambda t: cv2.imshow(t, self.original),
+        }
 
-        if debug == 'wide':
-            cv2.imshow('wide', self.wide)
-
-        elif debug == 'tight':
-            cv2.imshow('tight', self.tight)
-
-        elif debug == 'auto':
-            cv2.imshow('auto', self.auto())
-
-        elif debug == 'processed':
-            cv2.imshow('processed', self.processed)
+        print('Height: {}\nwidth: {}'.format(self.height, self.width))
+        
+        if debug in types.keys():
+            types[debug](debug)
 
         elif debug == 'all':
-            cv2.imshow('wide', self.wide)
-            cv2.imshow('tight', self.tight)
-            cv2.imshow('auto', self.auto())
+            for i in types.items():
+                i[1](i[0])
 
         k = cv2.waitKey(0)
 
@@ -87,7 +94,7 @@ class ProcessImg(object):
 
 
 if __name__ == '__main__':
-    # a = ProcessImg("01atat.jpg")
+    a = ProcessImg("01atat.jpg")
     # a = ProcessImg("02recur.png")
     # a = ProcessImg("03steph.jpg")
     # a = ProcessImg("04carlage.jpg")
@@ -96,4 +103,9 @@ if __name__ == '__main__':
     # a = ProcessImg("07Pika.jpg")
     # a = ProcessImg("08face.jpg")
 
+    # print(type(a.processed))
+    # print(a.processed.shape)
+    # a.display('original')
+    # a.display('processed')
+    # a.display('all')
     a.display()

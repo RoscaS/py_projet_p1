@@ -5,9 +5,8 @@ class Grid(object):
     def __init__(self, img):
         self.img    = pi.ProcessImg(img)
         self.canny  = self.img.auto()
-        self.width  = self.canny.shape[1] # x
-        self.height = self.canny.shape[0] # y
-        self.len    = self.canny.size     # l
+        self.len    = self.canny.size
+        self.height, self.width = self.canny.shape # y, x
 
     @property
     def bin_list(self):
@@ -135,10 +134,11 @@ if __name__ == '__main__':
 
     # d = Draw('10hand2.png')
     # d = Draw('09hand.jpg')
-    d = Draw('07Pika.jpg')
+    # d = Draw('07Pika.jpg')
     # d = Draw('08face.jpg')
     # d = Draw('06logo2.png')
     # d = Draw('05logo1.png')
     # d = Draw('04carlage.jpg')
-    # d = Draw('01atat.jpg')
+    d = Draw('01atat.jpg')
+    # d = Draw('03steph.jpg')
     d.launche(3)
