@@ -52,13 +52,12 @@ class Draw(object):
 
         self.i = 0
 
-        self.flag = 1
-
-        self.move()
-        # self.first_move()
+        # self.move()
+        self.first_move()
         self.w.mainloop()
 
     def start_point(self):
+        print('start_point')
         for c, i in enumerate(self.lst):
             if i:
                 # return self.idx_xy(c)
@@ -75,28 +74,26 @@ class Draw(object):
         self.y = self.idx_xy(self.current)[1]
 
     def first_move(self):
+        print('first_move')
         self.current = self.start_point()
         self.set_xy()
         self.lst[self.current] = 0
         self.move()
 
     def move(self):
-        if self.flag:
-            self.flag = 0
-            self.first_move()
-
         self.i += 1
-        print(self.i)
+        print('i: {}\tcurrent: {:6}\t({:3},{:3})'.format(
+            self.i, self.current, self.x, self.y))
 
         x1, y1 = self.x - 1, self.y - 1
         x2, y2 = self.x + 1, self.y + 1
 
-        oval = self.can.create_oval(x1, x2, y1, y2, width=2, fill='red')
+        oval = self.can.create_oval(x1, y1, x2, y2, width=2, fill='red')
 
         self.find_next()
 
-        while self.i < self.grid.len:
-            self.w.after(50, self.move)
+        if self.i < self.grid.len:
+            self.w.after(1, self.move)
 
     def set_current(self, idx):
         self.current = idx
@@ -140,4 +137,4 @@ class Draw(object):
 
 if __name__ == '__main__':
 
-    d = Draw('08face.jpg')
+    d = Draw('07Pika.jpg')
