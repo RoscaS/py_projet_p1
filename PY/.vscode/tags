@@ -4,51 +4,103 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-ToCoords	../toCoords.py	/^class ToCoords(object):$/;"	kind:class	line:4
-__init__	../toCoords.py	/^    def __init__(self, image):$/;"	kind:member	line:5
-all_pixels	../test1.py	/^all_pixels = []$/;"	kind:variable	line:11
-all_pixels	../test2.py	/^all_pixels = []$/;"	kind:variable	line:13
-auto_canny	../test5.py	/^def auto_canny(image, sigma=0.33):$/;"	kind:function	line:4
-blurred	../test5.py	/^blurred = cv2.GaussianBlur(gray, (3, 3), 0)$/;"	kind:variable	line:20
-bw_value	../test1.py	/^        bw_value = int(round(sum(cpixel) \/ float(len(cpixel))))$/;"	kind:variable	line:17
-canny	../test5.py	/^canny   = auto_canny(blurred)$/;"	kind:variable	line:22
-canvas_height	../test1.py	/^canvas_height = height$/;"	kind:variable	line:27
-canvas_height	../test2.py	/^canvas_height = height$/;"	kind:variable	line:29
-canvas_width	../test1.py	/^canvas_width  = width$/;"	kind:variable	line:26
-canvas_width	../test2.py	/^canvas_width  = width$/;"	kind:variable	line:28
-coords	../test1.py	/^coords = []$/;"	kind:variable	line:12
-coords	../test2.py	/^coords = []$/;"	kind:variable	line:14
-cpixel	../test1.py	/^        cpixel = pixels[x, y]$/;"	kind:variable	line:16
-cpixel	../test2.py	/^        cpixel = pixels[x, y]$/;"	kind:variable	line:18
-display	../toCoords.py	/^    def display(self):$/;"	kind:member	line:25
-edges	../test4.py	/^edges = cv2.Canny(img, 100, 200)$/;"	kind:variable	line:6
-f	../test4.py	/^f = open("temp.txt", 'w')$/;"	kind:variable	line:15
-f	../test5.py	/^f = open("test.txt", "w")$/;"	kind:variable	line:27
-gray	../test3.py	/^gray = cv2.cvtColor(img0, cv2.COLOR_BGR2GRAY)$/;"	kind:variable	line:9
-gray	../test5.py	/^gray    = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)$/;"	kind:variable	line:19
-height	../test5.py	/^height = np.size(canny, 0)$/;"	kind:variable	line:24
-i	../test1.py	/^i = Image.open("atat.jpg")$/;"	kind:variable	line:4
-image	../test2.py	/^image = Image.open('atat.jpg')$/;"	kind:variable	line:4
-image	../test2.py	/^image = image.convert('1')$/;"	kind:variable	line:7
-image	../test2.py	/^image = image.filter(ImageFilter.FIND_EDGES)$/;"	kind:variable	line:5
-image	../test5.py	/^image   = cv2.imread("atat.jpg")$/;"	kind:variable	line:18
-img	../test3.py	/^img = cv2.GaussianBlur(gray, (3, 3), 0)$/;"	kind:variable	line:12
-img	../test4.py	/^img = cv2.imread('atat.jpg', 0)$/;"	kind:variable	line:5
-img0	../test3.py	/^img0 = cv2.imread('atat.jpg',)$/;"	kind:variable	line:6
-laplacian	../test3.py	/^laplacian = cv2.Laplacian(img, cv2.CV_64F)$/;"	kind:variable	line:15
-master	../test1.py	/^master = tk.Tk()$/;"	kind:variable	line:29
-master	../test2.py	/^master = tk.Tk()$/;"	kind:variable	line:31
-pixels	../test1.py	/^pixels = i.load()$/;"	kind:variable	line:8
-pixels	../test2.py	/^pixels = image.load()$/;"	kind:variable	line:10
-process	../toCoords.py	/^    def process(self):$/;"	kind:member	line:14
-sobelx	../test3.py	/^sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)  # x$/;"	kind:variable	line:16
-sobely	../test3.py	/^sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)  # y$/;"	kind:variable	line:17
-test1.py	../test1.py	1;"	kind:file	line:1
-test2.py	../test2.py	1;"	kind:file	line:1
-test3.py	../test3.py	1;"	kind:file	line:1
-test4.py	../test4.py	1;"	kind:file	line:1
-test5.py	../test5.py	1;"	kind:file	line:1
-toCoords.py	../toCoords.py	1;"	kind:file	line:1
-w	../test1.py	/^w = tk.Canvas(master, width=canvas_width, height=canvas_height)$/;"	kind:variable	line:31
-w	../test2.py	/^w = tk.Canvas(master, width=canvas_width, height=canvas_height)$/;"	kind:variable	line:33
-width	../test5.py	/^width  = np.size(canny, 1)$/;"	kind:variable	line:25
+G	../algorithmes.py	/^G = clf.kneighbors_graph()$/;"	kind:variable	line:18
+G	../test7.py	/^G = clf.kneighbors_graph()$/;"	kind:variable	line:34
+Gui	../gui.py	/^class Gui(object):$/;"	kind:class	line:4
+ProcessImg	../processImg.py	/^class ProcessImg(object):$/;"	kind:class	line:4
+T	../algorithmes.py	/^T = nx.from_scipy_sparse_matrix(G)$/;"	kind:variable	line:20
+T	../test7.py	/^T = nx.from_scipy_sparse_matrix(G)$/;"	kind:variable	line:36
+__init__	../gui.py	/^    def __init__(self, Processed_img):$/;"	kind:member	line:5
+__init__	../processImg.py	/^    def __init__(self, image):$/;"	kind:member	line:5
+__process	../processImg.py	/^    def __process(self):$/;"	kind:member	line:11
+algorithmes.py	../algorithmes.py	1;"	kind:file	line:1
+all_pixels	../tests/test1.py	/^all_pixels = []$/;"	kind:variable	line:11
+all_pixels	../tests/test2.py	/^all_pixels = []$/;"	kind:variable	line:13
+auto	../processImg.py	/^    def auto(self, sigma=0.33):$/;"	kind:member	line:33
+auto_canny	../tests/test5.py	/^def auto_canny(image, sigma=0.33):$/;"	kind:function	line:5
+blurred	../tests/test5.py	/^blurred = cv2.GaussianBlur(gray, (3, 3), 0)$/;"	kind:variable	line:16
+bou1	../tests/test6.py	/^bou1 = tk.Button(fen1, text='Quitter', width=8, command=fen1.quit)$/;"	kind:variable	line:46
+bou2	../tests/test6.py	/^bou2 = tk.Button(fen1, text='Démarrer', width=8, command=start_it)$/;"	kind:variable	line:49
+bou3	../tests/test6.py	/^bou3 = tk.Button(fen1, text='Arrêter', width=8, command=stop_it)$/;"	kind:variable	line:52
+bw_value	../tests/test1.py	/^        bw_value = int(round(sum(cpixel) \/ float(len(cpixel))))$/;"	kind:variable	line:17
+can1	../test7.py	/^can1 = tk.Canvas(fen1, bg='dark grey', height=1000, width=1000)$/;"	kind:variable	line:64
+can1	../tests/test6.py	/^can1 = tk.Canvas(fen1, bg='dark grey', height=250, width=250)$/;"	kind:variable	line:41
+canny	../tests/test5.py	/^canny   = auto_canny(blurred)$/;"	kind:variable	line:18
+canvas_height	../tests/test1.py	/^canvas_height = height$/;"	kind:variable	line:27
+canvas_height	../tests/test2.py	/^canvas_height = height$/;"	kind:variable	line:29
+canvas_width	../tests/test1.py	/^canvas_width  = width$/;"	kind:variable	line:26
+canvas_width	../tests/test2.py	/^canvas_width  = width$/;"	kind:variable	line:28
+clf	../algorithmes.py	/^clf = NearestNeighbors(2).fit(points)$/;"	kind:variable	line:17
+clf	../test7.py	/^clf = NearestNeighbors(2).fit(points)$/;"	kind:variable	line:33
+coords	../processImg.py	/^    def coords(self):$/;"	kind:member	line:18
+coords	../tests/test1.py	/^coords = []$/;"	kind:variable	line:12
+coords	../tests/test2.py	/^coords = []$/;"	kind:variable	line:14
+coords	../tests/test5.py	/^coords = []$/;"	kind:variable	line:23
+coords_file	../processImg.py	/^    def coords_file(self, file='coords'):$/;"	kind:member	line:44
+cpixel	../tests/test1.py	/^        cpixel = pixels[x, y]$/;"	kind:variable	line:16
+cpixel	../tests/test2.py	/^        cpixel = pixels[x, y]$/;"	kind:variable	line:18
+display	../gui.py	/^    def display(self):$/;"	kind:member	line:10
+display	../processImg.py	/^    def display(self, debug='auto'):$/;"	kind:member	line:51
+edges	../tests/test4.py	/^edges = cv2.Canny(img, 100, 200)$/;"	kind:variable	line:6
+f	../tests/test4.py	/^f = open("temp.txt", 'w')$/;"	kind:variable	line:15
+fen1	../test7.py	/^fen1 = tk.Tk()$/;"	kind:variable	line:58
+fen1	../tests/test6.py	/^fen1 = tk.Tk()$/;"	kind:variable	line:38
+flag	../tests/test6.py	/^flag   = 0$/;"	kind:variable	line:36
+g	../processImg.py	/^    g = ProcessImg("07Pika.jpg")$/;"	kind:variable	line:90
+gray	../tests/test3.py	/^gray = cv2.cvtColor(img0, cv2.COLOR_BGR2GRAY)$/;"	kind:variable	line:9
+gray	../tests/test5.py	/^gray    = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)$/;"	kind:variable	line:15
+gui	../gui.py	/^    gui = Gui(processImg.ProcessImg("07Pika.jpg"))$/;"	kind:variable	line:25
+gui.py	../gui.py	1;"	kind:file	line:1
+height	../tests/test5.py	/^height = np.size(canny, 0)$/;"	kind:variable	line:20
+i	../test7.py	/^i = 1$/;"	kind:variable	line:55
+i	../tests/test1.py	/^i = Image.open("atat.jpg")$/;"	kind:variable	line:4
+image	../tests/test2.py	/^image = Image.open('atat.jpg')$/;"	kind:variable	line:4
+image	../tests/test2.py	/^image = image.convert('1')$/;"	kind:variable	line:7
+image	../tests/test2.py	/^image = image.filter(ImageFilter.FIND_EDGES)$/;"	kind:variable	line:5
+image	../tests/test5.py	/^image   = cv2.imread("atat.jpg")$/;"	kind:variable	line:14
+img	../tests/test3.py	/^img = cv2.GaussianBlur(gray, (3, 3), 0)$/;"	kind:variable	line:12
+img	../tests/test4.py	/^img = cv2.imread('atat.jpg', 0)$/;"	kind:variable	line:5
+img0	../tests/test3.py	/^img0 = cv2.imread('atat.jpg',)$/;"	kind:variable	line:6
+k	../tests/test5.py	/^k = cv2.waitKey(0)$/;"	kind:variable	line:27
+l	../test7.py	/^l = ordered_points$/;"	kind:variable	line:54
+laplacian	../tests/test3.py	/^laplacian = cv2.Laplacian(img, cv2.CV_64F)$/;"	kind:variable	line:15
+master	../tests/test1.py	/^master = tk.Tk()$/;"	kind:variable	line:29
+master	../tests/test2.py	/^master = tk.Tk()$/;"	kind:variable	line:31
+move	../test7.py	/^def move():$/;"	kind:function	line:68
+move	../tests/test6.py	/^def move():$/;"	kind:function	line:3
+order	../algorithmes.py	/^order = list(nx.dfs_preorder_nodes(T, 0))$/;"	kind:variable	line:22
+order	../test7.py	/^order = list(nx.dfs_preorder_nodes(T, 0))$/;"	kind:variable	line:38
+ordered_points	../test7.py	/^ordered_points = list(zip(x[order]+50, y[order]+50))$/;"	kind:variable	line:43
+oval1	../test7.py	/^oval1 = can1.create_oval(x1,y1,x2,y2,width=2,fill='red')$/;"	kind:variable	line:66
+oval1	../tests/test6.py	/^oval1 = can1.create_oval(x1, y1, x1+30, y1+30, width=2, fill='red')$/;"	kind:variable	line:44
+p	../test7.py	/^p = pi.ProcessImg("07Pika.jpg").coords$/;"	kind:variable	line:14
+pixels	../tests/test1.py	/^pixels = i.load()$/;"	kind:variable	line:8
+pixels	../tests/test2.py	/^pixels = image.load()$/;"	kind:variable	line:10
+points	../algorithmes.py	/^points = np.c_[x, y]$/;"	kind:variable	line:15
+points	../test7.py	/^points = []$/;"	kind:variable	line:16
+points	../test7.py	/^points = np.array(points)$/;"	kind:variable	line:26
+processImg.py	../processImg.py	1;"	kind:file	line:1
+sobelx	../tests/test3.py	/^sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)  # x$/;"	kind:variable	line:16
+sobely	../tests/test3.py	/^sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)  # y$/;"	kind:variable	line:17
+start_it	../tests/test6.py	/^def start_it():$/;"	kind:function	line:28
+stop_it	../tests/test6.py	/^def stop_it():$/;"	kind:function	line:24
+test1.py	../tests/test1.py	1;"	kind:file	line:1
+test2.py	../tests/test2.py	1;"	kind:file	line:1
+test3.py	../tests/test3.py	1;"	kind:file	line:1
+test4.py	../tests/test4.py	1;"	kind:file	line:1
+test5.py	../tests/test5.py	1;"	kind:file	line:1
+test6.py	../tests/test6.py	1;"	kind:file	line:1
+test7.py	../test7.py	1;"	kind:file	line:1
+tight	../processImg.py	/^    def tight(self):$/;"	kind:member	line:30
+w	../tests/test1.py	/^w = tk.Canvas(master, width=canvas_width, height=canvas_height)$/;"	kind:variable	line:31
+w	../tests/test2.py	/^w = tk.Canvas(master, width=canvas_width, height=canvas_height)$/;"	kind:variable	line:33
+wide	../processImg.py	/^    def wide(self):$/;"	kind:member	line:26
+width	../tests/test5.py	/^width  = np.size(canny, 1)$/;"	kind:variable	line:21
+x	../algorithmes.py	/^x = np.linspace(0, 2 * np.pi, 100)$/;"	kind:variable	line:12
+x	../test7.py	/^x = []$/;"	kind:variable	line:17
+x	../test7.py	/^x = np.array(x)$/;"	kind:variable	line:24
+xx	../algorithmes.py	/^xx = x[order]$/;"	kind:variable	line:24
+y	../algorithmes.py	/^y = np.sin(x)$/;"	kind:variable	line:13
+y	../test7.py	/^y = []$/;"	kind:variable	line:18
+y	../test7.py	/^y = np.array(y)$/;"	kind:variable	line:25
+yy	../algorithmes.py	/^yy = y[order]$/;"	kind:variable	line:25

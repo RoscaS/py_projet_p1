@@ -1,12 +1,13 @@
 import numpy as np
 import cv2
 
+
 class ProcessImg(object):
-    def __init__(self, img):
-        self.original  = img
+    def __init__(self, image):
+        self.original = image
         self.processed = self.__process()
-        self.width     = np.size(self.processed, 0)
-        self.height    = np.size(self.processed, 1)
+        self.height = np.size(self.processed, 0)
+        self.width = np.size(self.processed, 1)
 
     def __process(self):
         img = cv2.imread(self.original)
@@ -71,13 +72,12 @@ class ProcessImg(object):
 
         k = cv2.waitKey(0)
 
-        if k == 27: # (escape)
+        if k == 27:  # (escape)
             cv2.destroyAllWindows()
 
         elif k == ord('s') and canny != 'all':
             cv2.imwrite("atat-canny.jpg", img)
             cv2.destroyAllWindows()
-
 
 
 if __name__ == '__main__':
@@ -96,5 +96,3 @@ if __name__ == '__main__':
     # e.display()
     # f.display()
     g.display()
-
-
