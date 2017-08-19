@@ -11,7 +11,7 @@ class ProcessImg(object):
     def __process(self):
         img = cv2.imread(self.original)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
+        
         return cv2.GaussianBlur(gray, (3, 3), 0)
 
     @property
@@ -39,7 +39,11 @@ class ProcessImg(object):
         # lower and upper tresholds de l'hysterisis
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
-        return cv2.Canny(self.processed, lower, upper)
+        canny = cv2.Canny(self.processed, lower, upper)
+        # ajoute du padding pour eviter l'overflow lors du draw
+        paddi = cv2.copyMakeBorder(
+            canny, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=0000)
+        return paddi
 
     def coords_file(self, file='coords'):
         '''Retourne un fichier dont chaque ligne est une coordonnée
@@ -64,6 +68,9 @@ class ProcessImg(object):
         elif debug == 'auto':
             cv2.imshow('auto', self.auto())
 
+        elif debug == 'processed':
+            cv2.imshow('processed', self.processed)
+
         elif debug == 'all':
             cv2.imshow('wide', self.wide)
             cv2.imshow('tight', self.tight)
@@ -78,23 +85,27 @@ class ProcessImg(object):
             cv2.imwrite("atat-canny.jpg", img)
             cv2.destroyAllWindows()
 
+    # def padding(self):
+    # self.processed = cv2.resize(
+    # self.processed, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+
+    # pts1 = np.float32([[56,65],[368,52],[28,387],[389,390]])
+    # pts2 = np.float32([[0,0],[300,0],[0,300],[300,300]])
+    # M = cv2.getPerspectiveTransform(pts1,pts2)
+    # self.processed = cv2.warpPerspective(self.processed,M,(300,300))
+
+    # self.processed = cv2.copyMakeBorder(self.processed, 10, 10, 10, 10,
+    #                                     cv2.BORDER_CONSTANT, value=0000)
 
 
 if __name__ == '__main__':
     # a = ProcessImg("01atat.jpg")
-    # b = ProcessImg("02recur.png")
-    # c = ProcessImg("03steph.jpg")
-    # d = ProcessImg("04carlage.jpg")
-    # e = ProcessImg("05logo1.png")
-    # f = ProcessImg("06logo2.png")
-    g = ProcessImg("07Pika.jpg")
+    # a = ProcessImg("02recur.png")
+    # a = ProcessImg("03steph.jpg")
+    # a = ProcessImg("04carlage.jpg")
+    # a = ProcessImg("05logo1.png")
+    # a = ProcessImg("06logo2.png")
+    # a = ProcessImg("07Pika.jpg")
+    # a = ProcessImg("08face.jpg")
 
-    # a.display()
-    # b.display()
-    # c.display()
-    # d.display()
-    # e.display()
-    # f.display()
-    g.display()
-
-
+    a.display()

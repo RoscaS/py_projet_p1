@@ -30,15 +30,14 @@ class Grid(object):
                 f.write(str(i))
 
 
-
-
 class Draw(object):
 
     def __init__(self, img):
-        self.grid = Grid(img)
-        self.lst  = self.grid.bin_list
+        self.grid  = Grid(img)
+        self.lst   = self.grid.bin_list
+        self.dots  = self.lst.count(1)
+        self.speed = None
 
-        # self.img  = img
         self.w    = tk.Tk()
         self.can  = tk.Canvas(
             self.w, width=self.grid.width, height=self.grid.height)
@@ -50,9 +49,10 @@ class Draw(object):
         self.x       = None # x
         self.y       = None # y
 
-        self.i = 0
+        self.i = 1
 
-        # self.move()
+    def launche(self, speed=5):
+        self.speed = speed
         self.first_move()
         self.w.mainloop()
 
@@ -82,18 +82,18 @@ class Draw(object):
 
     def move(self):
         self.i += 1
-        print('i: {}\tcurrent: {:6}\t({:3},{:3})'.format(
-            self.i, self.current, self.x, self.y))
+        print('i: {}/{}\tcurrent idx: {:6}\t({:3},{:3})'.format(
+            self.i, self.dots, self.current, self.x, self.y))
 
         x1, y1 = self.x - 1, self.y - 1
         x2, y2 = self.x + 1, self.y + 1
 
-        oval = self.can.create_oval(x1, y1, x2, y2, width=2, fill='red')
+        oval = self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
 
         self.find_next()
 
-        if self.i < self.grid.len:
-            self.w.after(1, self.move)
+        if self.i < self.dots:
+            self.w.after(self.speed, self.move)
 
     def set_current(self, idx):
         self.current = idx
@@ -137,4 +137,10 @@ class Draw(object):
 
 if __name__ == '__main__':
 
-    d = Draw('07Pika.jpg')
+    # d = Draw('07Pika.jpg')
+    # d = Draw('08face.jpg')
+    # d = Draw('06logo2.png')
+    # d = Draw('05logo1.png')
+    # d = Draw('04carlage.jpg')
+    d = Draw('01atat.jpg')
+    d.launche(1)
