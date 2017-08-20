@@ -15,7 +15,7 @@ class ProcessImg(object):
         canny = self.auto()
         return [(x, y) for y in range(self.height) for x in range(self.width)
                 if canny[y, x] != 0]
-    
+
     def __process(self):
         resized = self.resize(self.original)
         gray    = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
@@ -75,7 +75,7 @@ class ProcessImg(object):
         }
 
         print('Height: {}\nwidth: {}'.format(self.height, self.width))
-        
+
         if debug in types.keys():
             types[debug](debug)
 
@@ -91,6 +91,35 @@ class ProcessImg(object):
         elif k == ord('s') and canny != 'all':
             cv2.imwrite("atat-canny.jpg", img)
             cv2.destroyAllWindows()
+
+
+class Grid(object):
+    def __init__(self, img):
+        self.img = ProcessImg(img)
+        self.canny = self.img.auto()
+        self.len = self.canny.size
+        self.height, self.width = self.canny.shape  # y, x
+
+    @property
+    def bin_list(self):
+        '''transforme la liste 2d numpy en liste traditionnelle 1d'''
+        l = []
+        for i in self.canny:
+            for j in i:
+                l.append(1) if j else l.append(0)
+        return l
+
+    def __str__(self):
+        return 'width(x):\t{}\nheight(y):\t{}\nlen:\t\t{}'.format(
+            self.width, self.height, self.len)
+
+    def bin_to_file(self, name):
+        with open(name, 'w') as f:
+            for c, i in enumerate(self.bin_list):
+                if c % self.width == 0 and c != 0:
+                    f.write('\n')
+
+                f.write(str(i))
 
 
 if __name__ == '__main__':

@@ -1,180 +1,157 @@
 import processImg as pi
 import tkinter as tk
-
-class Grid(object):
-    def __init__(self, img):
-        self.img    = pi.ProcessImg(img)
-        self.canny  = self.img.auto()
-        self.len    = self.canny.size
-        self.height, self.width = self.canny.shape # y, x
-
-    @property
-    def bin_list(self):
-        l = []
-        for i in self.canny:
-            for j in i:
-                l.append(1) if j else l.append(0)
-        return l
-
-    def __str__(self):
-        return 'width(x):\t{}\nheight(y):\t{}\nlen:\t\t{}'.format(
-            self.width, self.height, self.len)
-
-    def bin_to_file(self, name):
-        with open(name, 'w') as f:
-            for c, i in enumerate(self.bin_list):
-                if c % self.width == 0 and c != 0:
-                    f.write('\n')
-
-                f.write(str(i))
+from time import sleep
 
 
 class Draw(object):
-
+    '''Pour empecher les pointillés, réduire le radius '''
     def __init__(self, img):
-        self.grid  = Grid(img)
-        self.lst   = self.grid.bin_list
-        self.dots  = self.lst.count(1)
+        self.grid = pi.Grid(img)
+        self.lst = self.grid.bin_list
+        self.dots = self.lst.count(1)
         self.speed = None
 
-        self.w    = tk.Tk()
-        self.can  = tk.Canvas(
-            self.w, width=self.grid.width, height=self.grid.height)
-
+        self.window = tk.Tk()
+        self.can = tk.Canvas(
+            self.window, width=self.grid.width, height=self.grid.height)
         self.can.pack(side='left', padx=5, pady=5)
 
-        self.pen = self.can.create_oval(1,1,8,8, width=0, fill='red' )
+        self.pen = 0
 
-        self.current = 0    # idx
-        self.next    = None # idx
-        self.x       = None # x
-        self.y       = None # y
+        self.up = self.can.create_oval(0, 0, 0, 0, width=1, fill='blue')
+        self.down = self.can.create_oval(0, 0, 0, 0, width=1, fill='red')
 
-        self.i = 1
+        self.idx = 0  # idx
+        self.next = self.find_dot()
+        self.x = 0  # x
+        self.y = 0  # y
 
-    def launche(self, speed=5):
+        self.i, self.j = 0, 0
+
+        self.compteur = 0
+
+    def start(self, speed=5):
         self.speed = speed
-        self.first_move()
-        self.w.mainloop()
+        self.move()
+        self.window.mainloop()
 
-    def start_point(self):
-        print('start_point')
-        for c, i in enumerate(self.lst):
-            if i:
-                return c
-        return None
-
-
-    def idx_xy(self, idx):
+    def idx_to_xy(self, idx):
         x = idx - ((idx // self.grid.width) * self.grid.width)
         y = idx // self.grid.width
         return (x, y)
 
-    def set_xy(self):
-        self.x = self.idx_xy(self.current)[0]
-        self.y = self.idx_xy(self.current)[1]
+    def move(self):
 
-    def first_move(self):
-        print('first_move')
-        self.current = self.start_point()
-        self.set_xy()
-        self.lst[self.current] = 0
-        # self.move_pen_up()
-        self.move_pen_down()
+        self.compteur += 1
+        print('i: {}/{}\tcurrent idx: {:6}\t({:3},{:3})\tPen: {}'.format(
+            self.compteur, self.dots, self.idx, self.x, self.y, self.pen))
 
 
-    # def move_pen_up(self):
-    #     old = self.current
-    #     old_x = self.x
-    #     old_y = self.y
-    #     self.current = self.start_point()
-    #     self.set_xy()
-    #     ix = 1 if self.x > old_x else - 1
-    #     iy = 1 if self.x > old_y else - 1
-
-    #     x1, y1 = old_x - 4, old_y - 4
-    #     x2, y2 = old_x + 4, old_y + 4
-
-    #     def test(ix, iy):
-    #         if self.x != old_x:
-    #             self.can.coords(self.pen, x1, y1, x2, y2, fill='blue')
-    #             ix += 1
-
-    #         if self.y != old_y:
-    #             self.can.coords(self.pen, x1, y1, x2, y2, fill='blue')
-    #             iy += 1
-
-    #         self.w.after(self.speed, test)
-
-    #     test(ix, iy)
-
-    #     self.move_pen_down()
-
-
-    def move_pen_down(self):
-        self.i += 1
-        print('i: {}/{}\tcurrent idx: {:6}\t({:3},{:3})'.format(
-            self.i, self.dots, self.current, self.x, self.y))
-
+        width = self.grid.width
         x1, y1 = self.x - 1, self.y - 1
         x2, y2 = self.x + 1, self.y + 1
 
-        oval = self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
-        self.can.coords(self.pen, x1-4, y1-4, x2+4, y2+4)
+        if self.pen == 0:  # up
+            dy = -((self.idx // width) - (self.next // width))
+            dx = -((self.idx % width) - (self.next % width))
 
-        self.find_next()
+            if self.i != dx:
+                if dx > 0:
+                    self.x += 1
+                    self.i += 1
+                else:
+                    self.x -= 1
+                    self.i -= 1
 
-        if self.i < self.dots:
-            self.w.after(self.speed, self.move_pen_down)
+            if self.j != dy:
+                if dy > 0:
+                    self.y += 1
+                    self.j += 1
+                else:
+                    self.y -= 1
+                    self.j -= 1
 
-    def set_current(self, idx):
-        self.current = idx
-        self.set_xy()
-        self.lst[self.current] = 0
+            if self.i == dx and self.j == dy:
+                sleep(0.5)
+                self.pen = 1
+                self.i, self.j = 0, 0
+                self.idx = self.next
+                self.x, self.y = self.idx_to_xy(self.next)
+                self.lst[self.idx] = 0
 
-    def find_next(self):
-        # Gauche
-        if self.lst[self.current - 1]:
-            self.set_current(self.current - 1)
-        # Bas gauche
-        elif self.lst[self.current + self.grid.width - 1]:
-            self.set_current(self.current + self.grid.width - 1)
-        # Bas
-        elif self.lst[self.current + self.grid.width]:
-            self.set_current(self.current + self.grid.width)
-        # Bas Droite
-        elif self.lst[self.current + self.grid.width + 1]:
-            self.set_current(self.current + self.grid.width + 1)
-        # Droite
-        elif self.lst[self.current + 1]:
-            self.set_current(self.current + 1)
-        # Haut droite
-        elif self.lst[self.current - self.grid.width + 1]:
-            self.set_current(self.current - self.grid.width + 1)
-        # Haut
-        elif self.lst[self.current - self.grid.width]:
-            self.set_current(self.current - self.grid.width)
-        # Haut gauche
-        elif self.lst[self.current - self.grid.width - 1]:
-            self.set_current(self.current - self.grid.width - 1)
-
-        else:
-            self.set_current(self.start_point())
+            self.can.coords(self.up, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
+            self.can.coords(self.down, 0, 0, 0, 0)
 
 
+        elif self.pen == 1:  # down
+            mark = self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
+            self.can.coords(self.down, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
+            self.can.coords(self.up, 0, 0, 0, 0)
 
-if __name__ == '__main__':
 
-    # d = Draw('10hand2.png')
-    # d = Draw('09hand.jpg')
-    # d = Draw('07Pika.jpg')
-    # d = Draw('08face.jpg')
-    # d = Draw('06logo2.png')
-    # d = Draw('05logo1.png')
-    # d = Draw('04carlage.jpg')
-    d = Draw('01atat.jpg')
-    # d = Draw('03steph.jpg')
-    d.launche(5)
+            if self.find_dot():
+                self.x, self.y = self.idx_to_xy(self.next)
+                self.lst[self.idx] = 0
+                self.idx = self.next
+            else:
+                sleep(0.5)
 
-    # print(d.start_point())
-    # print(d.idx_xy(d.start_point()))
+                self.pen = 0
+
+        self.window.after(self.speed, self.move)
+
+    def find_dot(self, radius=5):
+        '''Recherche et retourne l'idx du prochain `1` dans 
+        `self.lst`. `radius` représente le rayon qui a pour 
+        centre l'idx du dernier pixel traité. Si aucun 1 n'existe 
+        scan `self.lst` à partir du début pour en trouver un. 
+        Si il n'en trouve pas, le dessin est finit. '''
+        a = -radius
+        b = -radius
+        # Cherche dans un rayon de `radius` un pixel noir suivant
+        # pour continuer le trait.
+        for i in range((radius * 2) + 1):
+            for j in range((radius * 2) + 1):
+                n = self.idx + a * self.grid.width + b
+
+                if self.lst[n] == 1:
+                    self.next = n
+                    return 1
+
+                b += 1
+
+            a += 1
+            b = -radius
+
+        # Pas de pixel noir dans un rayon de radius. => Cherche
+        # un pixel noir proche pour reprendre de là.
+        radius += 10
+        a = -radius
+        b = -radius
+        for i in range((radius * 2) + 1):
+            for j in range((radius * 2) + 1):
+                n = self.idx + a * self.grid.width + b
+
+                if self.lst[n] == 1:
+                    self.next = n
+                    return 0 # return 0 => pen up !!
+
+                b += 1
+
+            a += 1
+            b = -radius
+        # si il ne trouve vraiment pas cherche à partir
+        # du début de la self.lst
+        for c, i in enumerate(self.lst):
+            if i:
+                self.next = c
+                return 0
+
+        return None
+
+
+# d = Draw('01atat.jpg')
+d = Draw('07Pika.jpg')
+d.start(1)
+# print(d.find_dot(50))
+# print(d.grid.len)
