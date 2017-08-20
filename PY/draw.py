@@ -2,7 +2,6 @@ import processImg as pi
 import tkinter as tk
 from time import sleep
 
-
 class Draw(object):
     '''Pour empecher les pointillés, réduire le radius '''
     def __init__(self, img):
