@@ -1,29 +1,39 @@
-from sklearn.neighbors import NearestNeighbors
-
-import processImg as pi
-
-import matplotlib.pyplot as plt
+from skimage import feature
 import numpy as np
-import networkx as nx
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
-import tkinter as tk
+#---------- Read Image ----------#
 
+img = mpimg.imread('01atat.jpg')
 
-x = np.linspace(0, 2 * np.pi, 100)
-y = np.sin(x)
+print(type(img))
+print(img.shape, img.dtype)
+print(img[100, 200, 0], img[100, 200, 1], img[100, 200, 2], img[100, 200, 3])
+print(img.max(), img.min())
 
-points = np.c_[x, y]
+M = np.zeros((img.shape[0], img.shape[1]))
+print(M)
 
-clf = NearestNeighbors(2).fit(points)
-G = clf.kneighbors_graph()
+M[:, :] = img[:, :, 0]
 
-T = nx.from_scipy_sparse_matrix(G)
+print(M.max(), M.min(), M.shape)
 
-order = list(nx.dfs_preorder_nodes(T, 0))
+plt.imshow(M, cmap=plt.get_cmap('gray'))
 
-xx = x[order]
-yy = y[order]
+plt.title("Lena Picture")
+plt.savefig("lena.png")
+#plt.show()
 
-plt.plot(xx, yy)
-plt.show()
+#---------- Apply Canny  ----------#
 
+edges = feature.canny(M, sigma=3)
+
+fig, ax = plt.subplots()
+
+ax.imshow(edges, cmap=plt.cm.gray, interpolation='nearest')
+#ax.axis('off')
+ax.set_title('Canny Edge Detection')
+
+plt.savefig("LenaCanny.png")
+#plt.show()

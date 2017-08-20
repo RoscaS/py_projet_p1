@@ -1,13 +1,15 @@
 import processImg as pi
+import sys
+import numpy as np
 import tkinter as tk
 from time import sleep
 
 class Draw(object):
     '''Pour empecher les pointillés, réduire le radius '''
     def __init__(self, img):
-        self.grid = pi.Grid(img)
-        self.lst = self.grid.bin_list
-        self.dots = self.lst.count(1)
+        self.grid  = pi.Grid(img)
+        self.lst   = self.grid.bin_list
+        self.dots  = self.lst.count(1)
         self.speed = None
 
         self.window = tk.Tk()
@@ -27,7 +29,7 @@ class Draw(object):
 
         self.i, self.j = 0, 0
 
-        self.compteur = 0
+        self.alarm = 100
 
     def start(self, speed=5):
         self.speed = speed
@@ -41,12 +43,7 @@ class Draw(object):
 
     def move(self):
 
-        self.compteur += 1
-        print('i: {}/{}\tcurrent idx: {:6}\t({:3},{:3})\tPen: {}'.format(
-            self.compteur, self.dots, self.idx, self.x, self.y, self.pen))
-
-
-        width = self.grid.width
+        width  = self.grid.width
         x1, y1 = self.x - 1, self.y - 1
         x2, y2 = self.x + 1, self.y + 1
 
@@ -71,35 +68,41 @@ class Draw(object):
                     self.j -= 1
 
             if self.i == dx and self.j == dy:
-                sleep(0.5)
+                sleep(0.1)
                 self.pen = 1
                 self.i, self.j = 0, 0
                 self.idx = self.next
                 self.x, self.y = self.idx_to_xy(self.next)
-                self.lst[self.idx] = 0
 
             self.can.coords(self.up, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
             self.can.coords(self.down, 0, 0, 0, 0)
 
+        # PROBLEME DE RECURSSION QUI INDUIT LA LENTEUR PROGRESSIVE.
+        # SEPARER CETTE FONCTION EN DEUX PEUT PEUT-ETRE RESOUDRE
+        # LE PROBLEME !
+        # https://www.daniweb.com/programming/software-development/threads/322107/python-after-method-causing-slowdown
 
         elif self.pen == 1:  # down
-            mark = self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
+
             self.can.coords(self.down, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
             self.can.coords(self.up, 0, 0, 0, 0)
 
-
             if self.find_dot():
+                mark = self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
                 self.x, self.y = self.idx_to_xy(self.next)
                 self.lst[self.idx] = 0
                 self.idx = self.next
+                self.dots -= 1
             else:
-                sleep(0.5)
-
+                sleep(0.1)
                 self.pen = 0
+
+                if self.lst.count(1) == 0:
+                    return 0
 
         self.window.after(self.speed, self.move)
 
-    def find_dot(self, radius=5):
+    def find_dot(self, radius=1):
         '''Recherche et retourne l'idx du prochain `1` dans 
         `self.lst`. `radius` représente le rayon qui a pour 
         centre l'idx du dernier pixel traité. Si aucun 1 n'existe 
@@ -124,7 +127,7 @@ class Draw(object):
 
         # Pas de pixel noir dans un rayon de radius. => Cherche
         # un pixel noir proche pour reprendre de là.
-        radius += 10
+        radius += 2
         a = -radius
         b = -radius
         for i in range((radius * 2) + 1):
@@ -139,18 +142,24 @@ class Draw(object):
 
             a += 1
             b = -radius
+
         # si il ne trouve vraiment pas cherche à partir
         # du début de la self.lst
         for c, i in enumerate(self.lst):
-            if i:
+            if i == 1:
                 self.next = c
                 return 0
 
-        return None
+
 
 
 # d = Draw('01atat.jpg')
 d = Draw('07Pika.jpg')
+# d = Draw('12lena.png')
+# d = Draw('02recur.png')
+# d = Draw('06logo2.png')
+# d = Draw('05logo1.png')
+# d = Draw('11circle.jpg')
 d.start(1)
 # print(d.find_dot(50))
 # print(d.grid.len)
