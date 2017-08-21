@@ -154,10 +154,10 @@ class Draw(object):
 
 
 # d = Draw('01atat.jpg')
-d = Draw('07Pika.jpg')
+# d = Draw('07Pika.jpg')
 # d = Draw('12lena.png')
 # d = Draw('02recur.png')
-# d = Draw('06logo2.png')
+d = Draw('06logo2.png')
 # d = Draw('05logo1.png')
 # d = Draw('11circle.jpg')
 d.start(1)
