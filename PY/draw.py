@@ -17,6 +17,8 @@ class Draw(object):
             self.window, width=self.grid.width, height=self.grid.height)
         self.can.pack(side='left', padx=5, pady=5)
 
+        self.lab = tk.Label(window, )
+
         self.pen = 0
 
         self.up = self.can.create_oval(0, 0, 0, 0, width=1, fill='blue')
@@ -150,16 +152,14 @@ class Draw(object):
                 self.next = c
                 return 0
 
-
-
-
-# d = Draw('01atat.jpg')
-# d = Draw('07Pika.jpg')
-# d = Draw('12lena.png')
-# d = Draw('02recur.png')
-d = Draw('06logo2.png')
-# d = Draw('05logo1.png')
-# d = Draw('11circle.jpg')
-d.start(1)
-# print(d.find_dot(50))
-# print(d.grid.len)
+if __name__ == '__main__':
+    d = Draw('01atat.jpg')
+    # d = Draw('07Pika.jpg')
+    # d = Draw('12lena.png')
+    # d = Draw('02recur.png')
+    # d = Draw('06logo2.png')
+    # d = Draw('05logo1.png')
+    # d = Draw('11circle.jpg')
+    d.start(1)
+    # print(d.find_dot(50))
+    # print(d.grid.len)

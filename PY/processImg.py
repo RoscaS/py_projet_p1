@@ -17,19 +17,15 @@ class ProcessImg(object):
                 if canny[y, x] != 0]
 
     def __process(self):
-        img = cv2.cvtColor(self.original, cv2.COLOR_BGR2GRAY)
-        img = cv2.GaussianBlur(img, (3, 3), 0)
-        # img = self.auto(blur)
-        # img = cv2.Canny(img, 50, 220)
-        img = cv2.Canny(img, 100, 200)
-
+        img    = cv2.cvtColor(self.original, cv2.COLOR_BGR2GRAY)
+        img    = cv2.GaussianBlur(img, (3, 3), 0)
+        # img  = self.auto(blur)
+        # img  = cv2.Canny(img, 50, 220)
+        img    = cv2.Canny(img, 100, 200)
         kernel = np.ones((2, 2), np.uint8)
-
-        # img = cv2.dilate(img, kernel, iterations=1)
-        # img = cv2.erode(img, kernel, iterations=1)
-
-        # img = self.resize(img)
-
+        # img  = cv2.dilate(img, kernel, iterations = 1)
+        # img  = cv2.erode(img, kernel, iterations  = 1)
+        img  = self.resize(img)
         return self.padding(img)
 
     def resize(self, img, width=640):
@@ -55,7 +51,6 @@ class ProcessImg(object):
         canny originale. En principe le sigma est universel'''
         # medianne de l'intensité de tous les pixels de l'image
         v = np.median(img)
-
         # lower and upper tresholds de l'hysterisis
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
