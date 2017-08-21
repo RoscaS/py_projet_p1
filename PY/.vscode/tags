@@ -87,7 +87,7 @@ cpixel	../00tests/test2.py	/^        cpixel = pixels[x, y]$/;"	kind:variable	lin
 d	../01test/dictVSlst.py	/^d = [True, True, False, True]$/;"	kind:variable	line:7
 d	../01test/dictVSlst.py	/^d = np.array(d)$/;"	kind:variable	line:17
 d	../01test/grid.py	/^    d = Draw('01atat.jpg')$/;"	kind:variable	line:175
-d	../draw.py	/^    d = Draw('12lena.png')$/;"	kind:variable	line:156
+d	../draw.py	/^    d = Draw('01atat.jpg')$/;"	kind:variable	line:163
 d	../test.py	/^d = Draw('06logo2.png')$/;"	kind:variable	line:151
 da	../01test/dictVSlst.py	/^da = {$/;"	kind:variable	line:26
 data	../00tests/test10.py	/^    data = find_groups(borne)$/;"	kind:variable	line:65
@@ -110,7 +110,7 @@ fen	../00tests/test13.py	/^fen = tk.Tk()$/;"	kind:variable	line:52
 fen	../00tests/test8.py	/^fen = tk.Tk()$/;"	kind:variable	line:35
 fen1	../00tests/test6.py	/^fen1 = tk.Tk()$/;"	kind:variable	line:38
 fen1	../00tests/test7.py	/^fen1 = tk.Tk()$/;"	kind:variable	line:58
-find_dot	../draw.py	/^    def find_dot(self, radius=1):$/;"	kind:member	line:105
+find_dot	../draw.py	/^    def find_dot(self, radius=1):$/;"	kind:member	line:114
 find_dot	../test.py	/^    def find_dot(self, radius=1):$/;"	kind:member	line:103
 find_groups	../00tests/test10.py	/^def find_groups(borne):$/;"	kind:function	line:18
 find_groups	../00tests/test11.py	/^def find_groups(borne):$/;"	kind:function	line:18
@@ -137,7 +137,7 @@ i	../00tests/test13.py	/^i = 1$/;"	kind:variable	line:50
 i	../00tests/test7.py	/^i = 1$/;"	kind:variable	line:55
 i	../00tests/test8.py	/^i = 1$/;"	kind:variable	line:33
 i	../00tests/test9.py	/^i     = 0$/;"	kind:variable	line:31
-idx_to_xy	../draw.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:39
+idx_to_xy	../draw.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:45
 idx_to_xy	../test.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:29
 idx_xy	../01test/grid.py	/^    def idx_xy(self, idx):$/;"	kind:member	line:68
 image	../00tests/test2.py	/^image = Image.open('atat.jpg')$/;"	kind:variable	line:4
@@ -166,7 +166,7 @@ move	../00tests/test13.py	/^def move():$/;"	kind:function	line:58
 move	../00tests/test6.py	/^def move():$/;"	kind:function	line:3
 move	../00tests/test7.py	/^def move():$/;"	kind:function	line:68
 move	../00tests/test8.py	/^def move():$/;"	kind:function	line:44
-move	../draw.py	/^    def move(self):$/;"	kind:member	line:44
+move	../draw.py	/^    def move(self):$/;"	kind:member	line:50
 move	../test.py	/^    def move(self):$/;"	kind:member	line:40
 move_pen_down	../01test/grid.py	/^    def move_pen_down(self):$/;"	kind:member	line:114
 move_up	../test.py	/^    def move_up(self):$/;"	kind:member	line:49
@@ -211,7 +211,7 @@ set_current	../01test/grid.py	/^    def set_current(self, idx):$/;"	kind:member	
 set_xy	../01test/grid.py	/^    def set_xy(self):$/;"	kind:member	line:73
 sobelx	../00tests/test3.py	/^sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)  # x$/;"	kind:variable	line:16
 sobely	../00tests/test3.py	/^sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)  # y$/;"	kind:variable	line:17
-start	../draw.py	/^    def start(self, speed=5):$/;"	kind:member	line:34
+start	../draw.py	/^    def start(self, speed=5):$/;"	kind:member	line:36
 start	../test.py	/^    def start(self, speed=5):$/;"	kind:member	line:34
 start_it	../00tests/test6.py	/^def start_it():$/;"	kind:function	line:28
 start_point	../01test/grid.py	/^    def start_point(self):$/;"	kind:member	line:60

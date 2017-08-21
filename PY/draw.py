@@ -11,31 +11,30 @@ class Draw(object):
         self.lst   = self.grid.bin_list
         self.dots  = self.lst.count(1)
         self.speed = None
+        self.pen   = 0
 
         self.window = tk.Tk()
         self.can = tk.Canvas(
             self.window, width=self.grid.width, height=self.grid.height)
         self.can.pack(side='left', padx=5, pady=5)
 
-        self.lab = tk.Label(window, )
+        self.up   = self.can.create_oval(0, 0, 0, 0, width = 1, fill = 'blue')
+        self.down = self.can.create_oval(0, 0, 0, 0, width = 1, fill = 'red')
 
-        self.pen = 0
-
-        self.up = self.can.create_oval(0, 0, 0, 0, width=1, fill='blue')
-        self.down = self.can.create_oval(0, 0, 0, 0, width=1, fill='red')
-
-        self.idx = 0  # idx
+        self.idx  = 0  # idx
         self.next = self.find_dot()
-        self.x = 0  # x
-        self.y = 0  # y
+        self.x    = 0  # x
+        self.y    = 0  # y
 
         self.i, self.j = 0, 0
-
-        self.alarm = 100
 
     def start(self, speed=5):
         self.speed = speed
         self.move()
+
+        if self.dots > 0:
+            self.move()
+
         self.window.mainloop()
 
     def idx_to_xy(self, idx):
@@ -70,7 +69,7 @@ class Draw(object):
                     self.j -= 1
 
             if self.i == dx and self.j == dy:
-                sleep(0.1)
+                sleep(0.2)
                 self.pen = 1
                 self.i, self.j = 0, 0
                 self.idx = self.next
@@ -79,32 +78,32 @@ class Draw(object):
             self.can.coords(self.up, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
             self.can.coords(self.down, 0, 0, 0, 0)
 
-        # PROBLEME DE RECURSSION QUI INDUIT LA LENTEUR PROGRESSIVE.
-        # SEPARER CETTE FONCTION EN DEUX PEUT PEUT-ETRE RESOUDRE
-        # LE PROBLEME !
-        # https://www.daniweb.com/programming/software-development/threads/322107/python-after-method-causing-slowdown
-
         elif self.pen == 1:  # down
 
             self.can.coords(self.down, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
             self.can.coords(self.up, 0, 0, 0, 0)
 
             if self.find_dot():
-                mark = self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
-                self.x, self.y = self.idx_to_xy(self.next)
-                self.lst[self.idx] = 0
-                self.idx = self.next
-                self.dots -= 1
+                self.mark(x1, y1, x2, y2)
             else:
-                sleep(0.1)
+                sleep(0.2)
                 self.pen = 0
 
+                # Ici pour réduire le nombre d'itérations de count
                 if self.lst.count(1) == 0:
                     return 0
 
         self.window.after(self.speed, self.move)
 
-    def find_dot(self, radius=1):
+    def mark(self, x1, y1, x2, y2):
+        self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
+        self.x, self.y = self.idx_to_xy(self.next)
+        self.lst[self.idx] = 0
+        self.idx = self.next
+        self.dots -= 1
+
+
+    def find_dot(self, radius=2):
         '''Recherche et retourne l'idx du prochain `1` dans 
         `self.lst`. `radius` représente le rayon qui a pour 
         centre l'idx du dernier pixel traité. Si aucun 1 n'existe 
@@ -121,9 +120,7 @@ class Draw(object):
                 if self.lst[n] == 1:
                     self.next = n
                     return 1
-
                 b += 1
-
             a += 1
             b = -radius
 
@@ -139,12 +136,9 @@ class Draw(object):
                 if self.lst[n] == 1:
                     self.next = n
                     return 0 # return 0 => pen up !!
-
                 b += 1
-
             a += 1
             b = -radius
-
         # si il ne trouve vraiment pas cherche à partir
         # du début de la self.lst
         for c, i in enumerate(self.lst):
@@ -152,10 +146,12 @@ class Draw(object):
                 self.next = c
                 return 0
 
+
+
 if __name__ == '__main__':
-    d = Draw('01atat.jpg')
+    # d = Draw('01atat.jpg')
     # d = Draw('07Pika.jpg')
-    # d = Draw('12lena.png')
+    d = Draw('12lena.png')
     # d = Draw('02recur.png')
     # d = Draw('06logo2.png')
     # d = Draw('05logo1.png')

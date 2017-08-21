@@ -25,7 +25,8 @@ class ProcessImg(object):
         kernel = np.ones((2, 2), np.uint8)
         # img  = cv2.dilate(img, kernel, iterations = 1)
         # img  = cv2.erode(img, kernel, iterations  = 1)
-        img  = self.resize(img)
+        # img  = self.resize(img)
+
         return self.padding(img)
 
     def resize(self, img, width=640):
@@ -119,10 +120,10 @@ if __name__ == '__main__':
     # a = ProcessImg("04carlage.jpg")
     # a = ProcessImg("05logo1.png")
     # a = ProcessImg("06logo2.png")
-    # a = ProcessImg("07Pika.jpg")
+    a = ProcessImg("07Pika.jpg")
     # a = ProcessImg("08face.jpg")
     # a = ProcessImg("11circle.jpg")
-    a = ProcessImg("12lena.png")
+    # a = ProcessImg("12lena.png")
 
     # print(type(a.processed))
     # print(a.processed.shape)
