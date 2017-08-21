@@ -3,6 +3,7 @@ import sys
 import numpy as np
 import tkinter as tk
 from time import sleep
+from math import sqrt
 
 class Draw(object):
     '''Pour empecher les pointillés, réduire le radius '''
@@ -19,20 +20,24 @@ class Draw(object):
         self.can.pack(side='left', padx=5, pady=5)
 
 
-        self.arm_1 = self.can.create_line(618,768,1122,768, width=10,fill='blue')
         self.arm_b = self.can.create_line(0,768,618,768, width=10,fill='green')
+        self.arm_a = self.can.create_line(618,768,1122,768, width=10,fill='blue')
+
         self.sheet = self.can.create_rectangle(100,98,1016,730, width=2)
 
+
+
+        # Variables dessin
+        self.x    = 0
+        self.y    = 768
+        self.idx  = self.xy_to_idx(0, 768)
+        self.next = self.find_dot()
 
         self.up   = self.can.create_oval(0, 0, 0, 0, width = 1, fill = 'blue')
         self.down = self.can.create_oval(0, 0, 0, 0, width = 1, fill = 'red')
 
-        # Variables dessin
-        self.idx  = 0  # idx
-        self.next = self.find_dot()
-        self.x    = 0  # x
-        self.y    = 0  # y
 
+        self.first = True
         self.i, self.j = 0, 0
 
     def start(self, speed=5):
@@ -48,13 +53,39 @@ class Draw(object):
         x = idx - ((idx // self.grid.width) * self.grid.width)
         y = idx // self.grid.width
         return (x, y)
-    
+
     def xy_to_idx(self, x, y):
-        # PAS BON PRENDRE WIDTH EN COMPTE
-        return x * y
+        return (y * self.grid.width) + x
+
+    def circles_intersection(self):
+        '''Intersection de deux cercles pour trouver
+        le point de jonction du bras'''
+        cx_a, cy_a = self.x, self.y
+        cx_b, cy_b = 1122, 768
+        r_a, r_b   = 504, 618
+        dx, dy     = cx_a - cx_b, cy_a - cy_b
+        dist       = sqrt(dx ** 2 + dy ** 2)
+
+        # segment `a` et hauteur
+        a = (r_a ** 2 - r_b ** 2 + dist ** 2) / (2 * dist)
+        h = sqrt(abs(r_a ** 2 - a ** 2))
+
+        # p2
+        x_centre = cx_a + a * (cx_b - cx_a) / dist
+        y_centre = cy_a + a * (cy_b - cy_a) / dist
+
+        # p3
+        x_intersect = x_centre + h * (cy_b - cy_a) / dist
+        y_intersect = y_centre - h * (cx_b - cx_a) / dist
+
+        return (x_intersect, y_intersect, h, a)
+
+    def draw_arms(self):
+        c_int_x, c_int_y, h, a = self.circles_intersection()
+        self.can.coords(self.arm_b, c_int_x, c_int_y, 1122, 778)
+        self.can.coords(self.arm_a, self.x, self.y, c_int_x, c_int_y)
 
     def move(self):
-
         width  = self.grid.width
         x1, y1 = self.x - 1, self.y - 1
         x2, y2 = self.x + 1, self.y + 1
@@ -78,6 +109,8 @@ class Draw(object):
                 else:
                     self.y -= 1
                     self.j -= 1
+            
+            self.draw_arms()
 
             if self.i == dx and self.j == dy:
                 sleep(0.2)
@@ -108,6 +141,7 @@ class Draw(object):
 
     def mark(self, x1, y1, x2, y2):
         self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
+        self.draw_arms()
         self.x, self.y = self.idx_to_xy(self.next)
         self.lst[self.idx] = 0
         self.idx = self.next
@@ -167,10 +201,4 @@ if __name__ == '__main__':
     # d = Draw('06logo2.png')
     # d = Draw('05logo1.png')
     # d = Draw('11circle.jpg')
-    # d.start(1)
-
-    xy = d.idx_to_xy(16532)
-    print(xy)
-    print(d.xy_to_idx(xy[0], xy[1]))
-    # print(d.find_dot(50))
-    # print(d.grid.len)
+    d.start(20)
