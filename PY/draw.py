@@ -15,12 +15,19 @@ class Draw(object):
 
         self.window = tk.Tk()
         self.can = tk.Canvas(
-            self.window, width=self.grid.width, height=self.grid.height)
+            self.window, width=1150, height=800)
         self.can.pack(side='left', padx=5, pady=5)
+
+
+        self.arm_1 = self.can.create_line(618,768,1122,768, width=10,fill='blue')
+        self.arm_b = self.can.create_line(0,768,618,768, width=10,fill='green')
+        self.sheet = self.can.create_rectangle(100,98,1016,730, width=2)
+
 
         self.up   = self.can.create_oval(0, 0, 0, 0, width = 1, fill = 'blue')
         self.down = self.can.create_oval(0, 0, 0, 0, width = 1, fill = 'red')
 
+        # Variables dessin
         self.idx  = 0  # idx
         self.next = self.find_dot()
         self.x    = 0  # x
@@ -41,6 +48,10 @@ class Draw(object):
         x = idx - ((idx // self.grid.width) * self.grid.width)
         y = idx // self.grid.width
         return (x, y)
+    
+    def xy_to_idx(self, x, y):
+        # PAS BON PRENDRE WIDTH EN COMPTE
+        return x * y
 
     def move(self):
 
@@ -103,7 +114,7 @@ class Draw(object):
         self.dots -= 1
 
 
-    def find_dot(self, radius=2):
+    def find_dot(self, radius=1):
         '''Recherche et retourne l'idx du prochain `1` dans 
         `self.lst`. `radius` représente le rayon qui a pour 
         centre l'idx du dernier pixel traité. Si aucun 1 n'existe 
@@ -150,12 +161,16 @@ class Draw(object):
 
 if __name__ == '__main__':
     # d = Draw('01atat.jpg')
-    # d = Draw('07Pika.jpg')
-    d = Draw('12lena.png')
+    d = Draw('07Pika.jpg')
+    # d = Draw('12lena.png')
     # d = Draw('02recur.png')
     # d = Draw('06logo2.png')
     # d = Draw('05logo1.png')
     # d = Draw('11circle.jpg')
-    d.start(1)
+    # d.start(1)
+
+    xy = d.idx_to_xy(16532)
+    print(xy)
+    print(d.xy_to_idx(xy[0], xy[1]))
     # print(d.find_dot(50))
     # print(d.grid.len)

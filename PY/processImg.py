@@ -25,7 +25,7 @@ class ProcessImg(object):
         kernel = np.ones((2, 2), np.uint8)
         # img  = cv2.dilate(img, kernel, iterations = 1)
         # img  = cv2.erode(img, kernel, iterations  = 1)
-        # img  = self.resize(img)
+        img  = self.resize(img)
 
         return self.padding(img)
 
