@@ -6,7 +6,6 @@ from time import sleep
 from math import sqrt
 
 class Draw(object):
-    '''Pour empecher les pointillés, réduire le radius '''
     def __init__(self, img):
         self.grid  = pi.Grid(img)
         self.lst   = self.grid.bin_list
@@ -14,23 +13,24 @@ class Draw(object):
         self.speed = None
         self.pen   = 0
 
+        # Tkinter
         self.window = tk.Tk()
         self.can = tk.Canvas(
             self.window, width=1150, height=800)
         self.can.pack(side='left', padx=5, pady=5)
 
-
+        # bras
         self.arm_b = self.can.create_line(0,768,618,768, width=10,fill='green')
         self.arm_a = self.can.create_line(618,768,1122,768, width=10,fill='blue')
 
+        # A4
         self.sheet = self.can.create_rectangle(100,98,1016,730, width=2)
-
-
 
         # Variables dessin
         self.x    = 0
-        self.y    = 768
-        self.idx  = self.xy_to_idx(0, 768)
+        self.y    = 0
+        # self.idx  = self.xy_to_idx(0, 768)
+        self.idx  = 0
         self.next = self.find_dot()
 
         self.up   = self.can.create_oval(0, 0, 0, 0, width = 1, fill = 'blue')
@@ -148,7 +148,7 @@ class Draw(object):
         self.dots -= 1
 
 
-    def find_dot(self, radius=1):
+    def find_dot(self, radius=3):
         '''Recherche et retourne l'idx du prochain `1` dans 
         `self.lst`. `radius` représente le rayon qui a pour 
         centre l'idx du dernier pixel traité. Si aucun 1 n'existe 
@@ -171,7 +171,7 @@ class Draw(object):
 
         # Pas de pixel noir dans un rayon de radius. => Cherche
         # un pixel noir proche pour reprendre de là.
-        radius += 2
+        radius += 10
         a = -radius
         b = -radius
         for i in range((radius * 2) + 1):
@@ -195,10 +195,10 @@ class Draw(object):
 
 if __name__ == '__main__':
     # d = Draw('01atat.jpg')
-    d = Draw('07Pika.jpg')
-    # d = Draw('12lena.png')
+    # d = Draw('07Pika.jpg')
+    d = Draw('12lena.png')
     # d = Draw('02recur.png')
     # d = Draw('06logo2.png')
     # d = Draw('05logo1.png')
     # d = Draw('11circle.jpg')
-    d.start(20)
+    d.start(5)
