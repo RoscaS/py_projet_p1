@@ -33,7 +33,7 @@ class Draw(object):
         self.y = 0
         # self.idx  = self.xy_to_idx(0, 768)
         self.idx = 0
-        self.next = self.find_dot()
+        self.next = 0
 
         self.up = self.can.create_oval(0, 0, 0, 0, width=1, fill='blue')
         self.down = self.can.create_oval(0, 0, 0, 0, width=1, fill='red')
@@ -115,25 +115,29 @@ class Draw(object):
             self.draw_arms()
 
             if self.i == dx and self.j == dy:
+                print('ici')
                 sleep(0.2)
                 self.pen = 1
                 self.i, self.j = 0, 0
                 self.idx = self.next
-                self.x, self.y = self.idx_to_xy(self.next)
+                # self.x, self.y = self.idx_to_xy(self.next)
 
             self.can.coords(self.up, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
             self.can.coords(self.down, 0, 0, 0, 0)
 
-        elif self.pen == 1:  # down
+        # elif self.pen == 1:  # down
+        if self.pen == 1:  # down
 
             self.can.coords(self.down, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
             self.can.coords(self.up, 0, 0, 0, 0)
 
-            if self.find_dot():
+            if self.find_dot(10):
                 self.mark(x1, y1, x2, y2)
             else:
                 sleep(0.2)
                 self.pen = 0
+
+            self.lst[self.idx] = 0
 
         self.window.after(self.speed, self.move)
 
@@ -141,55 +145,51 @@ class Draw(object):
         self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
         self.draw_arms()
         self.x, self.y = self.idx_to_xy(self.next)
-        self.lst[self.idx] = 0
         self.idx = self.next
-        self.dots -= 1 
+        self.dots -= 1
 
 
-    def find_dot(self, radius=3):
-        '''Recherche et retourne l'idx du prochain :1: dans 
-        `self.lst`. `radius` représente le rayon qui a pour 
-        centre l'idx du dernier pixel traité. Si aucun :1: n'existe 
-        scan `self.lst` à partir du début pour en trouver un. 
-        Si il n'en trouve pas, le dessin est finit. '''
-        a = -radius
-        b = -radius
-        # Cherche dans un rayon de `radius` un pixel noir suivant
-        # pour continuer le trait.
-        for i in range((radius * 2) + 1):
-            for j in range((radius * 2) + 1):
-                n = self.idx + a * self.grid.width + b
+    def find_dot(self, radius=50):
+        for i in range(radius):
+            radius = i + 1
 
-                if self.lst[n] == 1:
+            for j in range(-radius, radius + 1):
+                n = self.idx - (self.grid.width * radius) + j
+                if self.lst[n]:
+                    print(1)
                     self.next = n
+                    # return 1 if flag else 0
                     return 1
-                b += 1
-            a += 1
-            b = -radius
 
-        # Pas de pixel noir dans un rayon de radius. => Cherche
-        # un pixel noir proche pour reprendre de là.
-        radius += 10
-        a = -radius
-        b = -radius
-        for i in range((radius * 2) + 1):
-            for j in range((radius * 2) + 1):
-                n = self.idx + a * self.grid.width + b
-
-                if self.lst[n] == 1:
+                n = self.idx + (self.grid.width * radius) + j
+                if self.lst[n]:
+                    print(2)
                     self.next = n
-                    return 0  # return 0 => pen up !!
-                b += 1
-            a += 1
-            b = -radius
-        # si il ne trouve vraiment pas cherche à
-        # partir du début de self.lst
+                    # return 1 if flag else 0
+                    return 1
+
+            for j in range(-radius+1, radius):
+                n = self.lst[self.idx - radius + (j * self.grid.width)]
+                if self.lst[n]:
+                    print(3)
+                    self.next = n
+                    # return 1 if flag else 0
+                    return 1
+
+                n = self.lst[self.idx + radius + (j * self.grid.width)]
+                if self.lst[n]:
+                    print(4)
+                    self.next = n
+                    # return 1 if flag else 0
+                    return 1
+
         for c, i in enumerate(self.lst):
-            if i == 1:
+            if i:
+                print(5)
                 self.next = c
+                self.lst[self.idx] = 0
                 return 0
-        # Dessin finit
-        return 0
+
 
 
 if __name__ == '__main__':
@@ -200,4 +200,4 @@ if __name__ == '__main__':
     # d = Draw('06logo2.png')
     # d = Draw('05logo1.png')
     # d = Draw('11circle.jpg')
-    d.start(1)
+    d.start(5)
