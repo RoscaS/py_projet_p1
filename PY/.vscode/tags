@@ -6,13 +6,14 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 00.py	../01test/00.py	1;"	kind:file	line:1
 Draw	../01test/grid.py	/^class Draw(object):$/;"	kind:class	line:32
-Draw	../draw.py	/^class Draw(object):$/;"	kind:class	line:7
-Draw	../test.py	/^class Draw(object):$/;"	kind:class	line:8
+Draw	../draw-original.py	/^class Draw(object):$/;"	kind:class	line:9
+Draw	../draw2.py	/^class Draw(object):$/;"	kind:class	line:8
+Draw	../draw3.py	/^class Draw(object):$/;"	kind:class	line:9
 G	../00tests/test13.py	/^G   = clf.kneighbors_graph()$/;"	kind:variable	line:18
 G	../00tests/test7.py	/^G = clf.kneighbors_graph()$/;"	kind:variable	line:34
 G	../00tests/test8.py	/^G = clf.kneighbors_graph()  # len(G) => 11202$/;"	kind:variable	line:20
 Grid	../01test/grid.py	/^class Grid(object):$/;"	kind:class	line:4
-Grid	../processImg.py	/^class Grid(object):$/;"	kind:class	line:87
+Grid	../processImg.py	/^class Grid(object):$/;"	kind:class	line:77
 Gui	../gui.py	/^class Gui(object):$/;"	kind:class	line:4
 M	../algorithmes.py	/^M = np.zeros((img.shape[0], img.shape[1]))$/;"	kind:variable	line:15
 ProcessImg	../00tests/processImg.py	/^class ProcessImg(object):$/;"	kind:class	line:5
@@ -23,32 +24,33 @@ T	../00tests/test8.py	/^T = nx.from_scipy_sparse_matrix(G)$/;"	kind:variable	lin
 __init__	../00tests/processImg.py	/^    def __init__(self, image):$/;"	kind:member	line:6
 __init__	../01test/grid.py	/^    def __init__(self, img):$/;"	kind:member	line:34
 __init__	../01test/grid.py	/^    def __init__(self, img):$/;"	kind:member	line:5
-__init__	../draw.py	/^    def __init__(self, img):$/;"	kind:member	line:9
+__init__	../draw-original.py	/^    def __init__(self, img):$/;"	kind:member	line:10
+__init__	../draw2.py	/^    def __init__(self, img):$/;"	kind:member	line:9
+__init__	../draw3.py	/^    def __init__(self, img):$/;"	kind:member	line:10
 __init__	../gui.py	/^    def __init__(self, Processed_img):$/;"	kind:member	line:5
 __init__	../processImg.py	/^    def __init__(self, img):$/;"	kind:member	line:5
-__init__	../processImg.py	/^    def __init__(self, img):$/;"	kind:member	line:88
-__init__	../test.py	/^    def __init__(self, img):$/;"	kind:member	line:9
+__init__	../processImg.py	/^    def __init__(self, img):$/;"	kind:member	line:78
 __process	../00tests/processImg.py	/^    def __process(self):$/;"	kind:member	line:12
 __process	../processImg.py	/^    def __process(self):$/;"	kind:member	line:19
 __str__	../01test/grid.py	/^    def __str__(self):$/;"	kind:member	line:19
-__str__	../processImg.py	/^    def __str__(self):$/;"	kind:member	line:103
+__str__	../processImg.py	/^    def __str__(self):$/;"	kind:member	line:93
 a	../01test/dictVSlst.py	/^a = [1,2,3,4]$/;"	kind:variable	line:4
 a	../01test/dictVSlst.py	/^a = np.array(a)$/;"	kind:variable	line:14
-a	../processImg.py	/^    a = ProcessImg("07Pika.jpg")$/;"	kind:variable	line:123
+a	../processImg.py	/^    a = ProcessImg("12lena.png")$/;"	kind:variable	line:116
 algorithmes.py	../algorithmes.py	1;"	kind:file	line:1
 all_pixels	../00tests/test1.py	/^all_pixels = []$/;"	kind:variable	line:11
 all_pixels	../00tests/test2.py	/^all_pixels = []$/;"	kind:variable	line:13
 auto	../00tests/processImg.py	/^    def auto(self, sigma=0.33):$/;"	kind:member	line:34
 auto	../01test/00.py	/^def auto(img, sigma=0.33):$/;"	kind:function	line:7
-auto	../processImg.py	/^    def auto(self, img, sigma=0.33):$/;"	kind:member	line:50
+auto	../processImg.py	/^    def auto(self, img, sigma=0.33):$/;"	kind:member	line:40
 auto_canny	../00tests/test5.py	/^def auto_canny(image, sigma=0.33):$/;"	kind:function	line:5
 b	../01test/dictVSlst.py	/^b = ['a', 'b', 'c', 'd']$/;"	kind:variable	line:5
 b	../01test/dictVSlst.py	/^b = np.array(b)$/;"	kind:variable	line:15
 bin_list	../01test/grid.py	/^    def bin_list(self):$/;"	kind:member	line:12
-bin_list	../processImg.py	/^    def bin_list(self):$/;"	kind:member	line:95
+bin_list	../processImg.py	/^    def bin_list(self):$/;"	kind:member	line:85
 bin_to_file	../01test/00.py	/^def bin_to_file():$/;"	kind:function	line:16
 bin_to_file	../01test/grid.py	/^    def bin_to_file(self, name):$/;"	kind:member	line:23
-bin_to_file	../processImg.py	/^    def bin_to_file(self, name):$/;"	kind:member	line:107
+bin_to_file	../processImg.py	/^    def bin_to_file(self, name):$/;"	kind:member	line:97
 blurred	../00tests/test5.py	/^blurred = cv2.GaussianBlur(gray, (3, 3), 0)$/;"	kind:variable	line:16
 borne	../00tests/test10.py	/^borne = 0$/;"	kind:variable	line:47
 borne	../00tests/test9.py	/^borne = 0$/;"	kind:variable	line:32
@@ -71,6 +73,9 @@ canvas_height	../00tests/test1.py	/^canvas_height = height$/;"	kind:variable	lin
 canvas_height	../00tests/test2.py	/^canvas_height = height$/;"	kind:variable	line:29
 canvas_width	../00tests/test1.py	/^canvas_width  = width$/;"	kind:variable	line:26
 canvas_width	../00tests/test2.py	/^canvas_width  = width$/;"	kind:variable	line:28
+circles_intersection	../draw-original.py	/^    def circles_intersection(self):$/;"	kind:member	line:61
+circles_intersection	../draw2.py	/^    def circles_intersection(self):$/;"	kind:member	line:61
+circles_intersection	../draw3.py	/^    def circles_intersection(self):$/;"	kind:member	line:61
 clf	../00tests/test13.py	/^clf = NearestNeighbors(2).fit(points)$/;"	kind:variable	line:17
 clf	../00tests/test7.py	/^clf = NearestNeighbors(2).fit(points)$/;"	kind:variable	line:33
 clf	../00tests/test8.py	/^clf = NearestNeighbors(2).fit(points)$/;"	kind:variable	line:19
@@ -80,15 +85,16 @@ coords	../00tests/test2.py	/^coords = []$/;"	kind:variable	line:14
 coords	../00tests/test5.py	/^coords = []$/;"	kind:variable	line:23
 coords	../processImg.py	/^    def coords(self):$/;"	kind:member	line:12
 coords_file	../00tests/processImg.py	/^    def coords_file(self, file='coords'):$/;"	kind:member	line:45
-coords_file	../processImg.py	/^    def coords_file(self, file='coords'):$/;"	kind:member	line:67
+coords_file	../processImg.py	/^    def coords_file(self, file='coords'):$/;"	kind:member	line:57
 cost	../00tests/test13.py	/^    cost = (((ordered[:-1] - ordered[1:]) ** 2).sum(1)).sum()$/;"	kind:variable	line:32
 cpixel	../00tests/test1.py	/^        cpixel = pixels[x, y]$/;"	kind:variable	line:16
 cpixel	../00tests/test2.py	/^        cpixel = pixels[x, y]$/;"	kind:variable	line:18
 d	../01test/dictVSlst.py	/^d = [True, True, False, True]$/;"	kind:variable	line:7
 d	../01test/dictVSlst.py	/^d = np.array(d)$/;"	kind:variable	line:17
 d	../01test/grid.py	/^    d = Draw('01atat.jpg')$/;"	kind:variable	line:175
-d	../draw.py	/^    d = Draw('07Pika.jpg')$/;"	kind:variable	line:164
-d	../test.py	/^d = Draw('06logo2.png')$/;"	kind:variable	line:151
+d	../draw-original.py	/^    d = Draw('12lena.png')$/;"	kind:variable	line:197
+d	../draw2.py	/^    d = Draw('12lena.png')$/;"	kind:variable	line:249
+d	../draw3.py	/^    d = Draw('12lena.png')$/;"	kind:variable	line:198
 da	../01test/dictVSlst.py	/^da = {$/;"	kind:variable	line:26
 data	../00tests/test10.py	/^    data = find_groups(borne)$/;"	kind:variable	line:65
 data	../00tests/test10.py	/^data = find_groups(borne)$/;"	kind:variable	line:49
@@ -97,8 +103,13 @@ dictVSlst.py	../01test/dictVSlst.py	1;"	kind:file	line:1
 dictVslst2.py	../01test/dictVslst2.py	1;"	kind:file	line:1
 display	../00tests/processImg.py	/^    def display(self, debug='auto'):$/;"	kind:member	line:52
 display	../gui.py	/^    def display(self):$/;"	kind:member	line:10
-display	../processImg.py	/^    def display(self, debug='auto'):$/;"	kind:member	line:74
-draw.py	../draw.py	1;"	kind:file	line:1
+display	../processImg.py	/^    def display(self):$/;"	kind:member	line:64
+draw-original.py	../draw-original.py	1;"	kind:file	line:1
+draw2.py	../draw2.py	1;"	kind:file	line:1
+draw3.py	../draw3.py	1;"	kind:file	line:1
+draw_arms	../draw-original.py	/^    def draw_arms(self):$/;"	kind:member	line:84
+draw_arms	../draw2.py	/^    def draw_arms(self):$/;"	kind:member	line:84
+draw_arms	../draw3.py	/^    def draw_arms(self):$/;"	kind:member	line:84
 edges	../00tests/test4.py	/^edges = cv2.Canny(img, 100, 200)$/;"	kind:variable	line:6
 edges	../algorithmes.py	/^edges = feature.canny(M, sigma=3)$/;"	kind:variable	line:30
 ensembles	../00tests/test9.py	/^ensembles = []$/;"	kind:variable	line:34
@@ -110,8 +121,9 @@ fen	../00tests/test13.py	/^fen = tk.Tk()$/;"	kind:variable	line:52
 fen	../00tests/test8.py	/^fen = tk.Tk()$/;"	kind:variable	line:35
 fen1	../00tests/test6.py	/^fen1 = tk.Tk()$/;"	kind:variable	line:38
 fen1	../00tests/test7.py	/^fen1 = tk.Tk()$/;"	kind:variable	line:58
-find_dot	../draw.py	/^    def find_dot(self, radius=1):$/;"	kind:member	line:117
-find_dot	../test.py	/^    def find_dot(self, radius=1):$/;"	kind:member	line:103
+find_dot	../draw-original.py	/^    def find_dot(self, radius=3):$/;"	kind:member	line:148
+find_dot	../draw2.py	/^    def find_dot(self, radius=3):$/;"	kind:member	line:198
+find_dot	../draw3.py	/^    def find_dot(self, radius=3):$/;"	kind:member	line:149
 find_groups	../00tests/test10.py	/^def find_groups(borne):$/;"	kind:function	line:18
 find_groups	../00tests/test11.py	/^def find_groups(borne):$/;"	kind:function	line:18
 find_groups	../00tests/test9.py	/^def find_groups(borne):$/;"	kind:function	line:19
@@ -137,8 +149,9 @@ i	../00tests/test13.py	/^i = 1$/;"	kind:variable	line:50
 i	../00tests/test7.py	/^i = 1$/;"	kind:variable	line:55
 i	../00tests/test8.py	/^i = 1$/;"	kind:variable	line:33
 i	../00tests/test9.py	/^i     = 0$/;"	kind:variable	line:31
-idx_to_xy	../draw.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:47
-idx_to_xy	../test.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:29
+idx_to_xy	../draw-original.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:53
+idx_to_xy	../draw2.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:53
+idx_to_xy	../draw3.py	/^    def idx_to_xy(self, idx):$/;"	kind:member	line:53
 idx_xy	../01test/grid.py	/^    def idx_xy(self, idx):$/;"	kind:member	line:68
 image	../00tests/test2.py	/^image = Image.open('atat.jpg')$/;"	kind:variable	line:4
 image	../00tests/test2.py	/^image = image.convert('1')$/;"	kind:variable	line:7
@@ -154,9 +167,12 @@ k	../00tests/test5.py	/^k = cv2.waitKey(0)$/;"	kind:variable	line:27
 l	../00tests/test7.py	/^l = ordered_points$/;"	kind:variable	line:54
 laplacian	../00tests/test3.py	/^laplacian = cv2.Laplacian(img, cv2.CV_64F)$/;"	kind:variable	line:15
 launche	../01test/grid.py	/^    def launche(self, speed=5):$/;"	kind:member	line:55
-mark	../draw.py	/^    def mark(self, x1, y1, x2, y2):$/;"	kind:member	line:109
+mark	../draw-original.py	/^    def mark(self, x1, y1, x2, y2):$/;"	kind:member	line:140
+mark	../draw2.py	/^    def mark(self, x1, y1, x2, y2):$/;"	kind:member	line:142
+mark	../draw3.py	/^    def mark(self, x1, y1, x2, y2):$/;"	kind:member	line:140
 master	../00tests/test1.py	/^master = tk.Tk()$/;"	kind:variable	line:29
 master	../00tests/test2.py	/^master = tk.Tk()$/;"	kind:variable	line:31
+meta_scan	../draw2.py	/^    def meta_scan(self):$/;"	kind:member	line:151
 mindist	../00tests/test13.py	/^        mindist = cost$/;"	kind:variable	line:35
 mindist	../00tests/test13.py	/^mindist = np.inf$/;"	kind:variable	line:23
 minidx	../00tests/test13.py	/^        minidx  = 1$/;"	kind:variable	line:36
@@ -167,10 +183,10 @@ move	../00tests/test13.py	/^def move():$/;"	kind:function	line:58
 move	../00tests/test6.py	/^def move():$/;"	kind:function	line:3
 move	../00tests/test7.py	/^def move():$/;"	kind:function	line:68
 move	../00tests/test8.py	/^def move():$/;"	kind:function	line:44
-move	../draw.py	/^    def move(self):$/;"	kind:member	line:56
-move	../test.py	/^    def move(self):$/;"	kind:member	line:40
+move	../draw-original.py	/^    def move(self):$/;"	kind:member	line:90
+move	../draw2.py	/^    def move(self):$/;"	kind:member	line:89
+move	../draw3.py	/^    def move(self):$/;"	kind:member	line:90
 move_pen_down	../01test/grid.py	/^    def move_pen_down(self):$/;"	kind:member	line:114
-move_up	../test.py	/^    def move_up(self):$/;"	kind:member	line:49
 nouvelle_borne	../00tests/test9.py	/^    nouvelle_borne = find_groups(borne)$/;"	kind:variable	line:38
 opt_order	../00tests/test13.py	/^opt_order = paths[minidx]$/;"	kind:variable	line:38
 order	../00tests/test13.py	/^order = list(nx.dfs_preorder_nodes(T, 0))$/;"	kind:variable	line:21
@@ -187,7 +203,7 @@ oval1	../00tests/test7.py	/^oval1 = can1.create_oval(x1,y1,x2,y2,width=2,fill='r
 p	../00tests/test13.py	/^    p = paths[i]$/;"	kind:variable	line:29
 p	../00tests/test7.py	/^p = pi.ProcessImg("07Pika.jpg").coords$/;"	kind:variable	line:14
 p	../00tests/test8.py	/^p = np.array(pika.coords)$/;"	kind:variable	line:12
-padding	../processImg.py	/^    def padding(self, canny):$/;"	kind:member	line:62
+padding	../processImg.py	/^    def padding(self, canny):$/;"	kind:member	line:52
 paths	../00tests/test13.py	/^paths = [list(nx.dfs_preorder_nodes(T, i)) for i in range(len(points))]$/;"	kind:variable	line:26
 pika	../00tests/test10.py	/^pika = pi.ProcessImg("07Pika.jpg")$/;"	kind:variable	line:11
 pika	../00tests/test11.py	/^pika = pi.ProcessImg("07Pika.jpg")$/;"	kind:variable	line:11
@@ -207,18 +223,19 @@ points	../00tests/test8.py	/^points = np.c_[x, y]$/;"	kind:variable	line:17
 points	../00tests/test9.py	/^points = np.array(pika.coords)$/;"	kind:variable	line:12
 processImg.py	../00tests/processImg.py	1;"	kind:file	line:1
 processImg.py	../processImg.py	1;"	kind:file	line:1
-resize	../processImg.py	/^    def resize(self, img, width=640):$/;"	kind:member	line:32
+resize	../processImg.py	/^    def resize(self, img, width=640):$/;"	kind:member	line:31
+scan	../draw2.py	/^    def scan(self, radius=1):$/;"	kind:member	line:173
 set_current	../01test/grid.py	/^    def set_current(self, idx):$/;"	kind:member	line:130
 set_xy	../01test/grid.py	/^    def set_xy(self):$/;"	kind:member	line:73
 sobelx	../00tests/test3.py	/^sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)  # x$/;"	kind:variable	line:16
 sobely	../00tests/test3.py	/^sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)  # y$/;"	kind:variable	line:17
-start	../draw.py	/^    def start(self, speed=5):$/;"	kind:member	line:38
-start	../test.py	/^    def start(self, speed=5):$/;"	kind:member	line:34
+start	../draw-original.py	/^    def start(self, speed=5):$/;"	kind:member	line:44
+start	../draw2.py	/^    def start(self, speed=5):$/;"	kind:member	line:44
+start	../draw3.py	/^    def start(self, speed=5):$/;"	kind:member	line:44
 start_it	../00tests/test6.py	/^def start_it():$/;"	kind:function	line:28
 start_point	../01test/grid.py	/^    def start_point(self):$/;"	kind:member	line:60
 stop_it	../00tests/test6.py	/^def stop_it():$/;"	kind:function	line:24
 temp	../00tests/test11.py	/^temp = groupes()$/;"	kind:variable	line:50
-test.py	../test.py	1;"	kind:file	line:1
 test1.py	../00tests/test1.py	1;"	kind:file	line:1
 test10.py	../00tests/test10.py	1;"	kind:file	line:1
 test11.py	../00tests/test11.py	1;"	kind:file	line:1
@@ -233,12 +250,10 @@ test7.py	../00tests/test7.py	1;"	kind:file	line:1
 test8.py	../00tests/test8.py	1;"	kind:file	line:1
 test9.py	../00tests/test9.py	1;"	kind:file	line:1
 tight	../00tests/processImg.py	/^    def tight(self):$/;"	kind:member	line:31
-tight	../processImg.py	/^    def tight(self):$/;"	kind:member	line:46
 tot	../00tests/test11.py	/^tot  = 0$/;"	kind:variable	line:51
 w	../00tests/test1.py	/^w = tk.Canvas(master, width=canvas_width, height=canvas_height)$/;"	kind:variable	line:31
 w	../00tests/test2.py	/^w = tk.Canvas(master, width=canvas_width, height=canvas_height)$/;"	kind:variable	line:33
 wide	../00tests/processImg.py	/^    def wide(self):$/;"	kind:member	line:27
-wide	../processImg.py	/^    def wide(self):$/;"	kind:member	line:43
 width	../00tests/test5.py	/^width  = np.size(canny, 1)$/;"	kind:variable	line:21
 x	../00tests/test10.py	/^x = points[:, 0]$/;"	kind:variable	line:14
 x	../00tests/test11.py	/^x = points[:, 0]$/;"	kind:variable	line:14
@@ -250,8 +265,9 @@ x	../00tests/test8.py	/^x = p[:, 0]$/;"	kind:variable	line:14
 x	../00tests/test9.py	/^x = points[:,0]$/;"	kind:variable	line:14
 xx	../00tests/test13.py	/^xx = x[opt_order]$/;"	kind:variable	line:40
 xx	../00tests/test8.py	/^xx = x[order]$/;"	kind:variable	line:27
-xy	../draw.py	/^    xy = d.idx_to_xy(16532)$/;"	kind:variable	line:172
-xy_to_idx	../draw.py	/^    def xy_to_idx(self, x, y):$/;"	kind:member	line:52
+xy_to_idx	../draw-original.py	/^    def xy_to_idx(self, x, y):$/;"	kind:member	line:58
+xy_to_idx	../draw2.py	/^    def xy_to_idx(self, x, y):$/;"	kind:member	line:58
+xy_to_idx	../draw3.py	/^    def xy_to_idx(self, x, y):$/;"	kind:member	line:58
 y	../00tests/test10.py	/^y = points[:, 1]$/;"	kind:variable	line:15
 y	../00tests/test11.py	/^y = points[:, 1]$/;"	kind:variable	line:15
 y	../00tests/test12.py	/^y = points[:, 1]$/;"	kind:variable	line:15

@@ -19,10 +19,9 @@ class ProcessImg(object):
     def __process(self):
         img    = cv2.cvtColor(self.original, cv2.COLOR_BGR2GRAY)
         img    = cv2.GaussianBlur(img, (3, 3), 0)
-        # img  = self.auto(blur)
         # img  = cv2.Canny(img, 50, 220)
         img    = cv2.Canny(img, 100, 200)
-        kernel = np.ones((2, 2), np.uint8)
+        # kernel = np.ones((2, 2), np.uint8)
         # img  = cv2.dilate(img, kernel, iterations = 1)
         # img  = cv2.erode(img, kernel, iterations  = 1)
         # img  = self.resize(img)
@@ -30,7 +29,6 @@ class ProcessImg(object):
         return self.padding(img)
 
     def resize(self, img, width=640):
-        # if img.shape[1] > 640:
         if self.width > 640:
             img_scale = width / self.width
             xx = int(self.original.shape[1] * img_scale)
@@ -38,14 +36,6 @@ class ProcessImg(object):
             self.height, self.width = yy, xx
             resized = cv2.resize(img, (xx, yy))
             return resized
-        # return img
-
-    def wide(self):
-        return cv2.Canny(self.processed, 10, 200)
-
-    def tight(self):
-        return cv2.Canny(self.processed, 225, 250)
-
 
     def auto(self, img, sigma=0.33):
         '''Resoud le probleme des bornes de la fonction
@@ -71,7 +61,7 @@ class ProcessImg(object):
             for point in self.coords:
                 f.write('{} {}\n'.format(point[0], point[1]))
 
-    def display(self, debug='auto'):
+    def display(self):
         cv2.imshow('img', self.processed)
 
         k = cv2.waitKey(0)
@@ -120,10 +110,10 @@ if __name__ == '__main__':
     # a = ProcessImg("04carlage.jpg")
     # a = ProcessImg("05logo1.png")
     # a = ProcessImg("06logo2.png")
-    a = ProcessImg("07Pika.jpg")
+    # a = ProcessImg("07Pika.jpg")
     # a = ProcessImg("08face.jpg")
     # a = ProcessImg("11circle.jpg")
-    # a = ProcessImg("12lena.png")
+    a = ProcessImg("12lena.png")
 
     # print(type(a.processed))
     # print(a.processed.shape)
@@ -131,3 +121,4 @@ if __name__ == '__main__':
     # a.display('processed')
     # a.display('all')
     a.display()
+
