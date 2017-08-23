@@ -6,16 +6,9 @@ class ProcessImg(object):
         self.original  = cv2.imread(img)
         self.height    = self.original.shape[0]
         self.width     = self.original.shape[1]
-        self.processed = self.__process()
+        self.processed = self.__process
 
     @property
-    def coords(self):
-        '''Retourne une liste de tuples contenant les coordonnées
-        de l'image traitée avec `self.auto`(Canny)'''
-        canny = self.auto()
-        return [(x, y) for y in range(self.height) for x in range(self.width)
-                if canny[y, x] != 0]
-
     def __process(self):
         img    = cv2.cvtColor(self.original, cv2.COLOR_BGR2GRAY)
         img    = cv2.GaussianBlur(img, (3, 3), 0)
@@ -25,7 +18,6 @@ class ProcessImg(object):
         # img  = cv2.dilate(img, kernel, iterations = 1)
         # img  = cv2.erode(img, kernel, iterations  = 1)
         # img  = self.resize(img)
-
         return self.padding(img)
 
     def resize(self, img, width=640):
@@ -46,7 +38,6 @@ class ProcessImg(object):
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
         canny = cv2.Canny(img, lower, upper)
-
         return canny
 
     def padding(self, canny):
@@ -54,16 +45,8 @@ class ProcessImg(object):
         return cv2.copyMakeBorder(
             canny, 100, 100, 100, 100, cv2.BORDER_CONSTANT, value=0000)
 
-    def coords_file(self, file='coords'):
-        '''Retourne un fichier dont chaque ligne est une coordonnée
-        de l'image traitée avec `self.auto`(Canny)'''
-        with open(file, 'w') as f:
-            for point in self.coords:
-                f.write('{} {}\n'.format(point[0], point[1]))
-
     def display(self):
         cv2.imshow('img', self.processed)
-
         k = cv2.waitKey(0)
 
         if k == 27: # (escape)
@@ -76,9 +59,9 @@ class ProcessImg(object):
 
 class Grid(object):
     def __init__(self, img):
-        self.img = ProcessImg(img)
+        self.img   = ProcessImg(img)
         self.canny = self.img.processed
-        self.len = self.canny.size
+        self.len   = self.canny.size
         self.height, self.width = self.canny.shape  # y, x
 
     @property

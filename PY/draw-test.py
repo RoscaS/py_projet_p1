@@ -5,14 +5,13 @@ import tkinter as tk
 from time import sleep
 from math import sqrt
 
-
 class Draw(object):
     def __init__(self, img):
-        self.grid = pi.Grid(img)
-        self.lst = self.grid.bin_list
-        self.dots = self.lst.count(1)
+        self.grid  = pi.Grid(img)
+        self.lst   = self.grid.bin_list
+        self.dots  = self.lst.count(1)
         self.speed = None
-        self.pen = 0
+        self.pen   = 0
 
         # Tkinter
         self.window = tk.Tk()
@@ -28,32 +27,28 @@ class Draw(object):
         # A4
         self.sheet = self.can.create_rectangle(100, 98, 1016, 730, width=2)
 
-        # Variables dessin
-        self.x = 0
-        self.y = 0
-        # self.idx  = self.xy_to_idx(0, 768)
-        self.idx = 0
-        self.next = 0
-
+        # pen up, down
         self.up = self.can.create_oval(0, 0, 0, 0, width=1, fill='blue')
         self.down = self.can.create_oval(0, 0, 0, 0, width=1, fill='red')
 
-        self.first = True
-        self.i, self.j = 0, 0
+        # var dessin
+        self.x = 0
+        self.y = 0
+        self.dx_i = 0
+        self.dy_i = 0
+        self.idx  = 0
+        self.next = 0
 
+        
+    
     def start(self, speed=5):
         self.speed = speed
         self.move()
-
-        if self.dots > 0:
-            self.move()
-
         self.window.mainloop()
 
     def idx_to_xy(self, idx):
-        x = idx - ((idx // self.grid.width) * self.grid.width)
-        y = idx // self.grid.width
-        return (x, y)
+        return( idx - ((idx // self.grid.width) * self.grid.width),
+            idx // self.grid.width)
 
     def xy_to_idx(self, x, y):
         return (y * self.grid.width) + x
@@ -82,74 +77,75 @@ class Draw(object):
         return (x_intersect, y_intersect, h, a)
 
     def draw_arms(self):
-        # c_int_x, c_int_y, h, a = self.circles_intersection()
-        # self.can.coords(self.arm_b, c_int_x, c_int_y, 1122, 778)
-        # self.can.coords(self.arm_a, self.x, self.y, c_int_x, c_int_y)
-        pass
+        c_int_x, c_int_y, h, a = self.circles_intersection()
+        self.can.coords(self.arm_b, c_int_x, c_int_y, 1122, 778)
+        self.can.coords(self.arm_a, self.x, self.y, c_int_x, c_int_y)
+        # pass
 
     def move(self):
         width = self.grid.width
         x1, y1 = self.x - 1, self.y - 1
         x2, y2 = self.x + 1, self.y + 1
+        self.draw_arms()
 
-        if self.pen == 0:  # up
-            dy = -((self.idx // width) - (self.next // width))
-            dx = -((self.idx % width) - (self.next % width))
+        if self.pen == 0:
+            self.pend_down(x1, y1, x2, y2)
 
-            if self.i != dx:
-                if dx > 0:
-                    self.x += 1
-                    self.i += 1
-                else:
-                    self.x -= 1
-                    self.i -= 1
-
-            if self.j != dy:
-                if dy > 0:
-                    self.y += 1
-                    self.j += 1
-                else:
-                    self.y -= 1
-                    self.j -= 1
-
-            self.draw_arms()
-
-            if self.i == dx and self.j == dy:
-                print('ici')
-                sleep(0.2)
-                self.pen = 1
-                self.i, self.j = 0, 0
-                self.idx = self.next
-                # self.x, self.y = self.idx_to_xy(self.next)
-
-            self.can.coords(self.up, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
-            self.can.coords(self.down, 0, 0, 0, 0)
-
-        # elif self.pen == 1:  # down
-        if self.pen == 1:  # down
-
-            self.can.coords(self.down, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
-            self.can.coords(self.up, 0, 0, 0, 0)
-
-            if self.find_dot(10):
-                self.mark(x1, y1, x2, y2)
-            else:
-                sleep(0.2)
-                self.pen = 0
-
-            self.lst[self.idx] = 0
+        elif self.pen == 1:
+            self.pen_up(x1, y1, x2, y2)
 
         self.window.after(self.speed, self.move)
+
+
+    def pen_up(self, x1, y1, x2, y2):
+        self.can.coords(self.down, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
+        self.can.coords(self.up, 0, 0, 0, 0)
+
+        if self.find_dot(2):
+            self.mark(x1, y1, x2, y2)
+        else:
+            sleep(0.2)
+            self.pen = 0
+
+    def pen_down(x1, y1, x2, y2):
+        dy = -((self.idx // width) - (self.next // width))
+        dx = -((self.idx % width) - (self.next % width))
+
+        if self.dx_i != dx:
+            if dx_i > 0:
+                self.x += 1
+                self.dx_i += 1
+            else:
+                self.x -= 1
+                self.dx_i += 1
+
+        if self.dy_i != dy:
+            if dy_i > 0:
+                self.y += 1
+                self.dy_i += 1
+            else:
+                self.y -= 1
+                self.dy_i -= 1
+
+        if self.dx_i == dx and self.j == dy_i:
+            sleep(0.2)
+            self.pen = 1
+            self.i, self.j = 0, 0
+            self.idx = self.next
+            self.idx = self.next
+
+        self.can.coords(self.up, x1 - 6, y1 - 6, x2 + 6, y2 + 6)
+        self.can.coords(self.down, 0, 0, 0, 0)
 
     def mark(self, x1, y1, x2, y2):
         self.can.create_oval(x1, y1, x2, y2, width=1, fill='black')
         self.draw_arms()
-        self.x, self.y = self.idx_to_xy(self.next)
-        self.idx = self.next
-        self.dots -= 1
+        self.x, self.y     = self.idx_to_xy(self.next)
+        self.idx           = self.next
+        self.lst[self.idx] = 0
+        self.dots         -= 1
 
-
-    def find_dot(self, radius=50):
+    def finr_dot(self, radius=50):
         for i in range(radius):
             radius = i + 1
 
@@ -168,7 +164,7 @@ class Draw(object):
                     # return 1 if flag else 0
                     return 1
 
-            for j in range(-radius+1, radius):
+            for j in range(-radius + 1, radius):
                 n = self.lst[self.idx - radius + (j * self.grid.width)]
                 if self.lst[n]:
                     print(3)
@@ -189,8 +185,6 @@ class Draw(object):
                 self.next = c
                 self.lst[self.idx] = 0
                 return 0
-
-
 
 if __name__ == '__main__':
     # d = Draw('01atat.jpg')
